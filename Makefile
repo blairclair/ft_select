@@ -46,6 +46,7 @@ libft/printf_functions/print_extra_flags.c\
 libft/printf_functions/print_extra_stuff.c\
 libft/printf_functions/ft_printf.c\
 clear_screen.c\
+print_args.c\
 ft_select.c
 NAME=ft_select
 

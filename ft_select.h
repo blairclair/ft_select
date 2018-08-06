@@ -26,3 +26,4 @@ typedef struct  s_select
 }               t_select;                   
 
 void    clear_str();
+void    print_select_args(t_select *s_stuff);
