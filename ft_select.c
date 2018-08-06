@@ -57,17 +57,15 @@ int     read_input(t_select *s_stuff)
     char buf[1024];
     char buf2[30];
     char    *ap;
-    int     row;
 
     ap = buf2;
     print_select_args(s_stuff);
     tgetent(buf, getenv("TERM"));
-    row = get_row_col(s_stuff);
-    printf("%s",tgoto(tgetstr("cm", &ap), s_stuff->col_len, 0));
-    printf("%s",tgetstr("so", &ap));
+    while (1)
+    {
     read(0, &c, 5);
     if (c == LEFT)
-        ft_printf("left\n");
+        get_left(ap, s_stuff);
     else if (c == RIGHT)
         ft_printf("right\n");
     else if (c == UP)
@@ -75,7 +73,9 @@ int     read_input(t_select *s_stuff)
     else if (c == DOWN)
         ft_printf("down\n");
     else
-        ft_printf("c: %ud\n", c);
+        break ;
+    }
+   // get_left(ap, s_stuff);
     return (1);
 }
 
