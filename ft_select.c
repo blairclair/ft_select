@@ -34,7 +34,11 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
 {
     int longest;
     int i;
-
+    static struct termios newterm;
+    
+    tcgetattr(0, &newterm);
+    newterm.c_lflag &= ~(ICANON);
+    tcsetattr(0, TCSANOW, &newterm);
     i = 0;
     longest = get_longest_arg(argv);
     s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc - 1));
@@ -49,22 +53,18 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
 int     read_input()
 {
     unsigned int c;
-    static struct termios oldterm, newterm;
 
-    tcgetattr(STDIN_FILENO, &oldterm);
-    newterm = oldterm;
-    newterm.c_lflag &= ~(ICANON);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newterm);
-    while (1)
-    {
-        read(0, &c, 5);
-        if (c == (unsigned)ft_atoi("4479771d"))
-        {
-            ft_printf("yay\n");
-            break ;
-        }
+    read(0, &c, 5);
+    if (c == LEFT)
+        ft_printf("left\n");
+    else if (c == RIGHT)
+        ft_printf("right\n");
+    else if (c == UP)
+        ft_printf("up\n");
+    else if (c == DOWN)
+        ft_printf("down\n");
+    else
         ft_printf("c: %ud\n", c);
-    }
     return (1);
 }
 

@@ -15,6 +15,10 @@
 #include <termcap.h>
 #include <sys/ioctl.h>
 #include <termios.h>
+#define LEFT (unsigned)ft_atoi("4479771d")
+#define RIGHT (unsigned)ft_atoi("4414235d")
+#define UP (unsigned)ft_atoi("4283163d")
+#define DOWN (unsigned)ft_atoi("4348699d")
 
 typedef struct  s_select
 {
