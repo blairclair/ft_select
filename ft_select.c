@@ -51,12 +51,20 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     return (1);
 }
 
-int     read_input()
+int     read_input(t_select *s_stuff)
 {
     unsigned int c;
     char buf[1024];
+    char buf2[30];
+    char    *ap;
+    int     row;
 
+    ap = buf2;
+    print_select_args(s_stuff);
     tgetent(buf, getenv("TERM"));
+    row = get_row_col(s_stuff);
+    printf("%s",tgoto(tgetstr("cm", &ap), s_stuff->col_len, 0));
+    printf("%s",tgetstr("so", &ap));
     read(0, &c, 5);
     if (c == LEFT)
         ft_printf("left\n");
@@ -70,21 +78,6 @@ int     read_input()
         ft_printf("c: %ud\n", c);
     return (1);
 }
-/*
-int     get_term_info()
-{
-  
-    char *ap;
-    //char    *col;
-  //  char    *pos;
-
-
-
-   // col = tgetstr("cm", &ap);
-  //  pos = tgoto(col, tgetnum("co"), 60);
-   // ft_printf("%s", pos);
-    return (1);
-}*/
 
 int    main(int argc, char *argv[])
 {
@@ -96,8 +89,9 @@ int    main(int argc, char *argv[])
         return (0);
     }
     initialize_select(&s_stuff, argv, argc);
-    print_select_args(&s_stuff);
+  //  print_select_args(&s_stuff);
   //  get_term_info();
-    read_input();
+    clear_scr();
+    read_input(&s_stuff);
     return (0);
 }

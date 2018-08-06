@@ -22,8 +22,11 @@
 
 typedef struct  s_select
 {
-    char **args;
+    char    **args;
+    int     row_len;
+    int     col_len;
 }               t_select;                   
 
-void    clear_str();
+void    clear_scr();
 void    print_select_args(t_select *s_stuff);
+int     get_row_col(t_select *s_stuff);

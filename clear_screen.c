@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-void    clear_str()
+void    clear_scr()
 {
     char    buf[1024];
     char    buf2[30];
@@ -23,4 +23,24 @@ void    clear_str()
     tgetent(buf, getenv("TERM"));
     clearstr = tgetstr("cl", &ap);
     ft_printf("%s", clearstr);
+}
+
+int get_row_col(t_select *s_stuff)
+{
+    int i;
+
+    i = 0;
+    while (s_stuff->args[i])
+        i++;
+    i--;
+    s_stuff->col_len = 4 * i;
+    i = 0;
+    while (s_stuff->args[i])
+    {
+        s_stuff->col_len += ft_strlen(s_stuff->args[i]);
+        i++;
+    }
+    s_stuff->row_len = i;
+
+    return (i);
 }
