@@ -21,9 +21,11 @@ int get_del(char *ap, t_select *s_stuff)
     num = get_row_col(s_stuff);
     i = s_stuff->pos;
     s_stuff->args[i] = NULL;
+    s_stuff->selected[i] = '\0';
     while (i < num)
     {
         s_stuff->args[i] = s_stuff->args[i + 1];
+        s_stuff->selected[i] = s_stuff->selected[i + 1];
         i++;
     }
     i = 0;

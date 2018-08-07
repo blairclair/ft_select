@@ -40,6 +40,5 @@ int get_row_col(t_select *s_stuff)
         i++;
     }
     s_stuff->row_len = i;
-
     return (i);
 }
