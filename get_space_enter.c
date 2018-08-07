@@ -19,23 +19,14 @@ int get_space(char *ap, t_select *s_stuff)
     
     num = get_row_col(s_stuff);
     i = 0;
-    s_stuff->selected[s_stuff->pos] = 1;
     clear_scr();
-    while (i < num)
+    if (s_stuff->selected[s_stuff->pos] == 0)
+            s_stuff->selected[s_stuff->pos] = 1;
+    else
+        s_stuff->selected[s_stuff->pos] = 0;
+     while (i < num)
     {
-        if (s_stuff->selected[i] == 1)
-        {
-            ft_printf("%s",tgetstr("so", &ap));
-            ft_printf("%s", s_stuff->args[i]);
-            ft_printf("%s",tgetstr("se", &ap));
-            ft_printf(" ");
-        }
-        else
-        {
-            ft_printf("%s",tgetstr("se", &ap));
-            ft_printf("%s", s_stuff->args[i]);
-            ft_printf(" ");
-        }
+        reprint_args(i, s_stuff, ap);
         i++;
     }
     return (1);

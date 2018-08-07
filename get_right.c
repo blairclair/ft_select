@@ -29,19 +29,7 @@ int get_right(char *ap, t_select *s_stuff)
     ft_printf("%s",tgoto(tgetstr("cm", &ap), col, 0));  
     while (i < num)
     {
-        if (i == s_stuff->pos)
-        {
-            ft_printf("%s",tgetstr("us", &ap));
-            ft_printf("%s", s_stuff->args[i]);
-            ft_printf("%s",tgetstr("ue", &ap));
-            ft_printf(" ");
-        }
-        else
-        {
-            ft_printf("%s",tgetstr("ue", &ap));
-            ft_printf("%s", s_stuff->args[i]);
-            ft_printf(" ");
-        }
+        reprint_args(i, s_stuff, ap);
         i++;
     }
     return (1);

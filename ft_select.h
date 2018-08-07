@@ -37,3 +37,4 @@ int     get_row_col(t_select *s_stuff);
 int     get_left(char *ap, t_select *s_stuff);
 int     get_right(char *ap, t_select *s_stuff);
 int     get_space(char *ap, t_select *s_stuff);
+void    reprint_args(int i, t_select *s_stuff, char *ap);

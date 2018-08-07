@@ -83,12 +83,12 @@ int     read_input(t_select *s_stuff)
             ft_printf("up\n");
         else if (c == DOWN)
             ft_printf("down\n");
-        else if (c == SPACE)
+        else if (c == SPACE || c == SPACE2)
             get_space(ap, s_stuff);
         else
             {
                 ft_printf("%ud\n", c);//delete before submit
-             //   break ;
+                break ;
             }
     }
    tgetstr("ue", &ap);
