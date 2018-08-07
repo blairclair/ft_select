@@ -25,6 +25,7 @@ typedef struct  s_select
     char    **args;
     int     row_len;
     int     col_len;
+    int     pos;
 }               t_select;                   
 
 void    clear_scr();

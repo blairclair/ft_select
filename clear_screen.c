@@ -32,7 +32,6 @@ int get_row_col(t_select *s_stuff)
     i = 0;
     while (s_stuff->args[i])
         i++;
-    i--;
     s_stuff->col_len = 4 * i;
     i = 0;
     while (s_stuff->args[i])
