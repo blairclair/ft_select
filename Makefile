@@ -49,6 +49,7 @@ clear_screen.c\
 print_args.c\
 get_left.c\
 get_right.c\
+get_space_enter.c\
 ft_select.c
 NAME=ft_select
 

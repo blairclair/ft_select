@@ -19,6 +19,8 @@
 #define RIGHT (unsigned)ft_atoi("4414235d")
 #define UP (unsigned)ft_atoi("4283163d")
 #define DOWN (unsigned)ft_atoi("4348699d")
+#define SPACE (unsigned)ft_atoi("4479776d")
+#define SPACE2 (unsigned)ft_atoi("4414240d")
 
 typedef struct  s_select
 {
@@ -26,6 +28,7 @@ typedef struct  s_select
     int     row_len;
     int     col_len;
     int     pos;
+    int     *selected;
 }               t_select;                   
 
 void    clear_scr();
@@ -33,3 +36,4 @@ void    print_select_args(t_select *s_stuff);
 int     get_row_col(t_select *s_stuff);
 int     get_left(char *ap, t_select *s_stuff);
 int     get_right(char *ap, t_select *s_stuff);
+int     get_space(char *ap, t_select *s_stuff);

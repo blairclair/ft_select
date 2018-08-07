@@ -52,6 +52,13 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
         j++;
     }
     s_stuff->pos = 2000;
+    i = 0;
+    s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
+    while (s_stuff->selected[i])
+    {
+        s_stuff->selected[i] = 0;
+        i++;
+    }
     return (1);
 }
 
@@ -76,8 +83,13 @@ int     read_input(t_select *s_stuff)
             ft_printf("up\n");
         else if (c == DOWN)
             ft_printf("down\n");
+        else if (c == SPACE)
+            get_space(ap, s_stuff);
         else
-            break ;
+            {
+                ft_printf("%ud\n", c);//delete before submit
+             //   break ;
+            }
     }
    tgetstr("ue", &ap);
     return (1);
@@ -93,7 +105,6 @@ int    main(int argc, char *argv[])
         return (0);
     }
     initialize_select(&s_stuff, argv, argc);
- //   print_select_args(&s_stuff);
     clear_scr();
     read_input(&s_stuff);
     return (0);
