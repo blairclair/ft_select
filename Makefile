@@ -48,6 +48,7 @@ libft/printf_functions/ft_printf.c\
 clear_screen.c\
 print_args.c\
 get_left.c\
+get_right.c\
 ft_select.c
 NAME=ft_select
 

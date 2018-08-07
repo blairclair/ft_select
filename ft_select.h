@@ -32,3 +32,4 @@ void    clear_scr();
 void    print_select_args(t_select *s_stuff);
 int     get_row_col(t_select *s_stuff);
 int     get_left(char *ap, t_select *s_stuff);
+int     get_right(char *ap, t_select *s_stuff);

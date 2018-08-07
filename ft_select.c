@@ -67,17 +67,17 @@ int     read_input(t_select *s_stuff)
     tgetent(buf, getenv("TERM"));
     while (1)
     {
-    read(0, &c, 5);
-    if (c == LEFT)
-        get_left(ap, s_stuff);
-    else if (c == RIGHT)
-        ft_printf("right\n");
-    else if (c == UP)
-        ft_printf("up\n");
-    else if (c == DOWN)
-        ft_printf("down\n");
-    else
-        break ;
+        read(0, &c, 5);
+        if (c == LEFT)
+            get_left(ap, s_stuff);
+        else if (c == RIGHT)
+            get_right(ap, s_stuff);
+        else if (c == UP)
+            ft_printf("up\n");
+        else if (c == DOWN)
+            ft_printf("down\n");
+        else
+            break ;
     }
    // get_left(ap, s_stuff);
     return (1);
