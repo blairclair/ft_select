@@ -19,7 +19,7 @@ void    print_select_args(t_select *s_stuff)
     i = 0;
     while (s_stuff->args[i])
     {
-        ft_printf("%s    ", s_stuff->args[i]);
+        ft_printf("%s ", s_stuff->args[i]);
         i++;
     }
     ft_printf("\n");

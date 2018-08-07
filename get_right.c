@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_select.h"
 
 int get_right(char *ap, t_select *s_stuff)
@@ -26,16 +25,23 @@ int get_right(char *ap, t_select *s_stuff)
         s_stuff->pos = 0;
     else
         s_stuff->pos++;
-    ft_printf("pos: %d\n", s_stuff->pos);
     col = s_stuff->col_len - ft_strlen(s_stuff->args[i]);
     ft_printf("%s",tgoto(tgetstr("cm", &ap), col, 0));  
     while (i < num)
     {
         if (i == s_stuff->pos)
-             ft_printf("%s",tgetstr("us", &ap));
-        else
+        {
+            ft_printf("%s",tgetstr("us", &ap));
+            ft_printf("%s", s_stuff->args[i]);
             ft_printf("%s",tgetstr("ue", &ap));
-        ft_printf(s_stuff->args[i]);
+            ft_printf(" ");
+        }
+        else
+        {
+            ft_printf("%s",tgetstr("ue", &ap));
+            ft_printf("%s", s_stuff->args[i]);
+            ft_printf(" ");
+        }
         i++;
     }
     return (1);

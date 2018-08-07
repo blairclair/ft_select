@@ -93,7 +93,7 @@ int    main(int argc, char *argv[])
         return (0);
     }
     initialize_select(&s_stuff, argv, argc);
-    print_select_args(&s_stuff);
+ //   print_select_args(&s_stuff);
     clear_scr();
     read_input(&s_stuff);
     return (0);
