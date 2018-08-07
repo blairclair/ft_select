@@ -21,8 +21,10 @@ int get_left(char *ap, t_select *s_stuff)
     num = get_row_col(s_stuff);
     i = 0;
     clear_scr();
-    if (s_stuff->pos < 0 || s_stuff->pos == 2000)
+    if (s_stuff->pos <= 0 || s_stuff->pos == 2000)
         s_stuff->pos = get_row_col(s_stuff) - 1;
+    else
+        s_stuff->pos--;
     printf("pos: %d\n", s_stuff->pos);
     col = s_stuff->col_len - ft_strlen(s_stuff->args[i]);
     ft_printf("%s",tgoto(tgetstr("cm", &ap), col, 0));  
@@ -35,6 +37,5 @@ int get_left(char *ap, t_select *s_stuff)
         ft_printf(s_stuff->args[i]);
         i++;
     }
-    s_stuff->pos--;
     return (1);
 }

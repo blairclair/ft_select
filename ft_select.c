@@ -79,7 +79,7 @@ int     read_input(t_select *s_stuff)
         else
             break ;
     }
-   // get_left(ap, s_stuff);
+   tgetstr("ue", &ap);
     return (1);
 }
 
