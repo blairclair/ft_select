@@ -52,6 +52,8 @@ void reprint_args(int i, t_select *s_stuff, char *ap)
         ft_printf("%s", s_stuff->args[i]);
         ft_printf("%s",tgetstr("se", &ap));
     }
+    else if (s_stuff->args[i] == NULL)
+        ;
     else
         ft_printf("%s", s_stuff->args[i]);
     ft_printf(" ");

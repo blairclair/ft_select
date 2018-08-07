@@ -92,6 +92,8 @@ int     read_input(t_select *s_stuff)
             ft_printf("down\n");
         else if (c == SPACE || c == SPACE2)
             get_space(ap, s_stuff);
+        else if (c == DEL || c== DEL2 || c == DEL3)
+            get_del(ap, s_stuff);
         else if (c == ENTER1 || c == ENTER2)
         {
             get_enter(s_stuff);

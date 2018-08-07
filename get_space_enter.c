@@ -12,6 +12,31 @@
 
 #include "ft_select.h"
 
+int get_del(char *ap, t_select *s_stuff)
+{
+    int i;
+    int num;
+    
+    clear_scr();
+    num = get_row_col(s_stuff);
+    i = s_stuff->pos;
+    s_stuff->args[i] = NULL;
+    while (i < num)
+    {
+        s_stuff->args[i] = s_stuff->args[i + 1];
+        i++;
+    }
+    i = 0;
+
+    while (i < num)
+    {
+        reprint_args(i, s_stuff, ap);
+        i++;
+    }
+
+    return (1);
+}
+
 int get_enter(t_select *s_stuff)
 {
     int i;
