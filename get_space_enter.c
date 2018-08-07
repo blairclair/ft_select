@@ -15,7 +15,7 @@
 int get_del(char *ap, t_select *s_stuff)
 {
     int i;
-    int num;
+    static int num;
     
     clear_scr();
     num = get_row_col(s_stuff);
@@ -27,13 +27,12 @@ int get_del(char *ap, t_select *s_stuff)
         i++;
     }
     i = 0;
-
+    num--;
     while (i < num)
     {
         reprint_args(i, s_stuff, ap);
         i++;
     }
-
     return (1);
 }
 

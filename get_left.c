@@ -17,8 +17,9 @@ int get_left(char *ap, t_select *s_stuff)
     int         i;
   //  int         col;
     int         num;
-    
+
     num = get_row_col(s_stuff);
+     printf("num: %d", num);
     i = 0;
     clear_scr();
     if (s_stuff->pos <= 0 || s_stuff->pos == 2000)
