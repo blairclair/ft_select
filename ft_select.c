@@ -71,7 +71,7 @@ void    sighand(int i)
 
 int     read_input(t_select *s_stuff)
 {
-    unsigned int c;
+    unsigned long c;
     char buf[1024];
     char buf2[30];
     char    *ap;
@@ -94,7 +94,8 @@ int     read_input(t_select *s_stuff)
             get_space(ap, s_stuff);
         else if (c == DEL || c== DEL2 || c == DEL3)
         {
-            get_del(ap, s_stuff);
+            if (get_del(ap, s_stuff) == 0)
+                return (1);
         }
         else if (c == ENTER1 || c == ENTER2)
         {
