@@ -12,6 +12,20 @@
 
 #include "ft_select.h"
 
+int get_enter(t_select *s_stuff)
+{
+    int i;
+
+    i = 0;
+    while (s_stuff->args[i])
+    {
+        if (s_stuff->selected[i] == 1)
+            ft_printf("%s\n", s_stuff->args[i]);
+        i++;
+    }
+    return (1);
+}
+
 int get_space(char *ap, t_select *s_stuff)
 {
     int         i;

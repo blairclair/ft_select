@@ -87,8 +87,13 @@ int     read_input(t_select *s_stuff)
             ft_printf("down\n");
         else if (c == SPACE || c == SPACE2)
             get_space(ap, s_stuff);
+        else if (c == ENTER1 || c == ENTER2)
+        {
+            get_enter(s_stuff);
+            break ;
+        }
         else
-            {
+            {printf("yo\n");
                 ft_printf("%ud\n", c);//delete before submit
                 break ;
             }

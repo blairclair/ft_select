@@ -21,6 +21,8 @@
 #define DOWN (unsigned)ft_atoi("4348699d")
 #define SPACE (unsigned)ft_atoi("4479776d")
 #define SPACE2 (unsigned)ft_atoi("4414240d")
+#define ENTER1 (unsigned)ft_atoi("4414218d")
+#define ENTER2 (unsigned)ft_atoi("4479754d")
 
 typedef struct  s_select
 {
@@ -38,3 +40,4 @@ int     get_left(char *ap, t_select *s_stuff);
 int     get_right(char *ap, t_select *s_stuff);
 int     get_space(char *ap, t_select *s_stuff);
 void    reprint_args(int i, t_select *s_stuff, char *ap);
+int     get_enter(t_select *s_stuff);
