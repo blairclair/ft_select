@@ -36,7 +36,9 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     int i;
     int j;
     static struct termios newterm;
+    char    buf[1024];
     
+    tgetent(buf, getenv("TERM"));
     tcgetattr(0, &newterm);
     newterm.c_lflag &= ~(ICANON);
     tcsetattr(0, TCSANOW, &newterm);

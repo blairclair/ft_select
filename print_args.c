@@ -22,37 +22,31 @@ void    print_select_args(t_select *s_stuff)
         ft_printf("%s ", s_stuff->args[i]);
         i++;
     }
-    ft_printf("\n");
 }
 
 void reprint_args(int i, t_select *s_stuff, char *ap)
 {
     if (i == s_stuff->pos && s_stuff->selected[i] == 1)
     {
-             ft_printf("%s",tgetstr("us", &ap));
-            ft_printf("%s",tgetstr("so", &ap));
-            ft_printf("%s", s_stuff->args[i]);
-            ft_printf("%s",tgetstr("se", &ap));
-             ft_printf("%s",tgetstr("ue", &ap));
-            ft_printf(" ");
+        ft_printf("%s",tgetstr("us", &ap));
+        ft_printf("%s",tgetstr("so", &ap));
+        ft_printf("%s", s_stuff->args[i]);
+        ft_printf("%s",tgetstr("se", &ap));
+        ft_printf("%s",tgetstr("ue", &ap));
     }
     else if (i == s_stuff->pos && s_stuff->selected[i] == 0)
     {
         ft_printf("%s",tgetstr("us", &ap));
         ft_printf("%s", s_stuff->args[i]);
         ft_printf("%s",tgetstr("ue", &ap));
-        ft_printf(" ");
     }
     else if (i != s_stuff->pos && s_stuff->selected[i] == 1)
     {
         ft_printf("%s",tgetstr("so", &ap));
         ft_printf("%s", s_stuff->args[i]);
         ft_printf("%s",tgetstr("se", &ap));
-        ft_printf(" ");
     }
     else
-    {
         ft_printf("%s", s_stuff->args[i]);
-        ft_printf(" ");
-    }
+    ft_printf(" ");
 }

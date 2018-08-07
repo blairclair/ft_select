@@ -14,13 +14,13 @@
 
 void    clear_scr()
 {
-    char    buf[1024];
+ 
     char    buf2[30];
     char    *ap;
     char    *clearstr;
     
     ap = buf2;
-    tgetent(buf, getenv("TERM"));
+   // tgetent(buf, getenv("TERM"));
     clearstr = tgetstr("cl", &ap);
     ft_printf("%s", clearstr);
 }

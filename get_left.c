@@ -15,7 +15,7 @@
 int get_left(char *ap, t_select *s_stuff)
 {
     int         i;
-    int         col;
+  //  int         col;
     int         num;
     
     num = get_row_col(s_stuff);
@@ -25,8 +25,6 @@ int get_left(char *ap, t_select *s_stuff)
         s_stuff->pos = get_row_col(s_stuff) - 1;
     else
         s_stuff->pos--;
-    col = s_stuff->col_len - ft_strlen(s_stuff->args[i]);
-    ft_printf("%s",tgoto(tgetstr("cm", &ap), col, 0));  
     while (i < num)
     {
         reprint_args(i, s_stuff, ap);
