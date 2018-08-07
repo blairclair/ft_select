@@ -64,6 +64,11 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     return (1);
 }
 
+void    sighand(int i)
+{
+    printf("hi sig: %d\n", i);
+}
+
 int     read_input(t_select *s_stuff)
 {
     unsigned int c;
@@ -93,7 +98,7 @@ int     read_input(t_select *s_stuff)
             break ;
         }
         else
-            {printf("yo\n");
+            {
                 ft_printf("%ud\n", c);//delete before submit
                 break ;
             }

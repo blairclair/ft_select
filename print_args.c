@@ -26,6 +26,12 @@ void    print_select_args(t_select *s_stuff)
 
 void reprint_args(int i, t_select *s_stuff, char *ap)
 {
+    char    *ps;
+   // int     ln;
+  //  static int  lpos = 0;
+
+    ps = tgetstr("cm", &ap);
+//    tputs(tgoto(ps, lpos, 4), 1, putchar);
     if (i == s_stuff->pos && s_stuff->selected[i] == 1)
     {
         ft_printf("%s",tgetstr("us", &ap));

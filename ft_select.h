@@ -15,6 +15,7 @@
 #include <termcap.h>
 #include <sys/ioctl.h>
 #include <termios.h>
+#include <signal.h>
 #define LEFT (unsigned)ft_atoi("4479771d")
 #define RIGHT (unsigned)ft_atoi("4414235d")
 #define UP (unsigned)ft_atoi("4283163d")
