@@ -51,7 +51,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
         i++;
         j++;
     }
-    s_stuff->pos = '\0';
+    s_stuff->pos = 2000;
     return (1);
 }
 
