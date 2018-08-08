@@ -58,3 +58,36 @@ void reprint_args(int i, t_select *s_stuff, char *ap)
         ft_printf("%s", s_stuff->args[i]);
     ft_printf(" ");
 }
+
+void    rep2(t_select *s_stuff, int num, char *ap)
+{
+    int i;
+    int j;
+    int rn;
+
+    rn = num / s_stuff->rn;
+    j = 0;
+    i = 0;
+    if (s_stuff->rn == 1)
+    {
+        while (i < num)
+        {
+            reprint_args(i, s_stuff, ap);
+            i++;
+        }
+    }
+    else
+    {
+        while (j < s_stuff->rn)
+        {
+            while (i < rn)
+            {
+                reprint_args(i, s_stuff, ap);
+                i++;
+            }
+            ft_printf("\n");
+            rn *= 2;
+            j++;
+        }
+    }
+}

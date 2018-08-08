@@ -34,32 +34,10 @@ int get_del(char *ap, t_select *s_stuff)
         s_stuff->selected[i] = s_stuff->selected[i + 1];
         i++;
     }
-    i = 0;
     num--;
     if (s_stuff->pos > 0)
         s_stuff->pos--;
-    if (s_stuff->rn == 1)
-    {
-        while (i < num)
-        {
-            reprint_args(i, s_stuff, ap);
-            i++;
-        }
-    }
-    else
-    {
-        while (j < s_stuff->rn)
-        {
-            while (i < rn)
-            {
-                reprint_args(i, s_stuff, ap);
-                i++;
-            }
-            ft_printf("\n");
-            rn *= 2;
-            j++;
-        }
-    }
+    rep2(s_stuff, num, ap);
     return (1);
 }
 
@@ -80,42 +58,14 @@ int get_enter(t_select *s_stuff)
 
 int get_space(char *ap, t_select *s_stuff)
 {
-    int         i;
     int         num;
-    int         j;
-    int         rn;
-
     
     num = get_row_col(s_stuff);
-    i = 0;
-    j = 0;
-    rn = num / s_stuff->rn;
     clear_scr();
     if (s_stuff->selected[s_stuff->pos] == 0)
             s_stuff->selected[s_stuff->pos] = 1;
     else
         s_stuff->selected[s_stuff->pos] = 0;
-    if (s_stuff->rn == 1)
-    {
-        while (i < num)
-        {
-            reprint_args(i, s_stuff, ap);
-            i++;
-        }
-    }
-    else
-    {
-        while (j < s_stuff->rn)
-        {
-            while (i < rn)
-            {
-                reprint_args(i, s_stuff, ap);
-                i++;
-            }
-            ft_printf("\n");
-            rn *= 2;
-            j++;
-        }
-    }
+    rep2(s_stuff, num, ap);
     return (1);
 }
