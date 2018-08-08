@@ -46,7 +46,7 @@ int get_left(char *ap, t_select *s_stuff)
                 i++;
             }
             ft_printf("\n");
-            rn *= 2;
+            rn++;
             j++;
         }
     }

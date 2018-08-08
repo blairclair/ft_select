@@ -129,7 +129,7 @@ int    main(int argc, char *argv[])
     col = tgetnum("co");
     if (s_stuff.col_len >= col)
     {
-
+        s_stuff.rn++;
     }
     read_input(&s_stuff);
     return (0);
