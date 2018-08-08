@@ -53,7 +53,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
         i++;
         j++;
     }
-    s_stuff->pos = 2000;
+    s_stuff->pos = 0;
     i = 0;
     s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
     while (s_stuff->selected[i])
