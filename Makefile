@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror -ltermcap
+CFLAGS= -Wall -Wextra -Werror -ltermcap -g
 SRCS=libft/ft_putchar.c\
 libft/ft_strjoin.c\
 libft/ft_strcat.c\

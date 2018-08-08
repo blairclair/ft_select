@@ -45,6 +45,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     i = 1;
     j = 0;
     longest = get_longest_arg(argv);
+    s_stuff->col_len = 0;
     s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
     while (i < argc)
     {
@@ -55,13 +56,20 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     }
     s_stuff->pos = 0;
     i = 0;
-    s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
+    s_stuff->selected = 
+    ft_memalloc(sizeof(int) * argc + 1);
     while (s_stuff->selected[i])
     {
         s_stuff->selected[i] = 0;
         i++;
     }
     s_stuff->rn = 1;
+    i = 0;
+    while (s_stuff->args[i])
+    {
+        s_stuff->col_len += ft_strlen(s_stuff->args[i]);
+        i++;
+    }
     return (1);
 }
 
@@ -73,13 +81,11 @@ int     read_input(t_select *s_stuff)
     char buf2[30];
     char    *ap;
     int     num;
-    
+      clear_scr();
     ap = buf2;
     num = get_row_col(s_stuff);
-    printf("c: %d\n", s_stuff->col_len);
-    printf("s: %d\n", check_size(s_stuff));
     get_row_col(s_stuff);
-  //  clear_scr();
+  
     rep2(s_stuff, num, ap);
     tgetent(buf, getenv("TERM"));
     while (c = 0, (read(0, &c, 6)) != 0)
@@ -117,22 +123,25 @@ int    check_size(t_select *s_stuff)
 {
     int     col;
     char    buf[1024];
-    int     tmpcol;
+   // int     tmpcol;
 
     get_row_col(s_stuff);
     tgetent(buf, getenv("TERM"));
     col = tgetnum("co");
-    tmpcol = s_stuff->col_len;
-    if (tmpcol >= col)
+   // tmpcol = s_stuff->col_len;
+    if (s_stuff->col_len >= col)
     {
-        while (tmpcol >= col)
+        while (s_stuff->col_len >= col)
         {
             s_stuff->rn++;
-            tmpcol /= 2;
+            s_stuff->col_len /= 2;
         }
     }
     else
+    {
         s_stuff->rn = 1;
+        return (-1);
+    }
     return (col);
 }
 
