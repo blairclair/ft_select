@@ -70,19 +70,27 @@ void    sighand(int i)
     printf("hi sig: %d\n", i);
 }
 
+void    refresh()
+{
+    clear_scr();
+}
+
 int     read_input(t_select *s_stuff)
 {
     unsigned long c;
     char buf[1024];
     char buf2[30];
     char    *ap;
-
+    int     num;
+    
     ap = buf2;
-    print_select_args(s_stuff);
+    num = get_row_col(s_stuff);
+    printf("one: %d\n",check_size(s_stuff));
+    rep2(s_stuff, num, ap);
     tgetent(buf, getenv("TERM"));
-    while (1)
+   while (c = 0, (read(0, &c, 6)) != 0)
     {
-        read(0, &c, 5);
+      //  read(0, &c, 6);
         if (c == LEFT)
             get_left(ap, s_stuff);
         else if (c == RIGHT)
@@ -91,14 +99,14 @@ int     read_input(t_select *s_stuff)
             ft_printf("up\n");
         else if (c == DOWN)
             ft_printf("down\n");
-        else if (c == SPACE || c == SPACE2)
+        else if (c == SPACE)
             get_space(ap, s_stuff);
-        else if (c == 0 || c == DEL || c== DEL2 || c == DEL3)
+        else if (c == 0 || c == DEL || c== DEL2)
         {
             if (get_del(ap, s_stuff) == 0)
                 return (1);
         }
-        else if (c == ENTER1 || c == ENTER2)
+        else if (c == ENTER1)
         {
             get_enter(s_stuff);
             break ;
@@ -110,12 +118,34 @@ int     read_input(t_select *s_stuff)
             }
     }
    tgetstr("ue", &ap);
+printf("two: %d\n",check_size(s_stuff));
     return (1);
+}
+
+int    check_size(t_select *s_stuff)
+{
+    int col;
+    char buf[1024];
+
+    tgetent(buf, getenv("TERM"));
+    col = tgetnum("co");
+    if (s_stuff->col_len >= col)
+    {
+        while (s_stuff->col_len >= col)
+        {
+            s_stuff->rn++;
+            s_stuff->col_len /= 2;
+        }
+    }
+    else
+    {
+        s_stuff->rn = 1;
+    }
+    return (col);
 }
 
 int    main(int argc, char *argv[])
 {
-    int      col;
     t_select s_stuff;
 
     if (argc <= 1)
@@ -126,15 +156,7 @@ int    main(int argc, char *argv[])
     initialize_select(&s_stuff, argv, argc);
     clear_scr();
     get_row_col(&s_stuff);
-    col = tgetnum("co");
-    if (s_stuff.col_len >= col)
-    {
-        while (s_stuff.col_len >= col)
-        {
-            s_stuff.rn++;
-            s_stuff.col_len /= 2;
-        }
-    }
+    check_size(&s_stuff);
     read_input(&s_stuff);
     return (0);
 }
