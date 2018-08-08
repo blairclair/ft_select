@@ -80,13 +80,15 @@ void    rep2(t_select *s_stuff, int num, char *ap)
     {
         while (j < s_stuff->rn)
         {
+            if (i >= num)
+                break ;
             while (i < rn)
             {
                 reprint_args(i, s_stuff, ap);
                 i++;
             }
             ft_printf("\n");
-            rn *= 2;
+            rn++;
             j++;
         }
     }

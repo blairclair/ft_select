@@ -70,10 +70,6 @@ void    sighand(int i)
     printf("hi sig: %d\n", i);
 }
 
-void    refresh()
-{
-    clear_scr();
-}
 
 int     read_input(t_select *s_stuff)
 {
@@ -90,7 +86,6 @@ int     read_input(t_select *s_stuff)
     tgetent(buf, getenv("TERM"));
    while (c = 0, (read(0, &c, 6)) != 0)
     {
-      //  read(0, &c, 6);
         if (c == LEFT)
             get_left(ap, s_stuff);
         else if (c == RIGHT)
@@ -126,7 +121,7 @@ int    check_size(t_select *s_stuff)
 {
     int col;
     char buf[1024];
-
+    get_row_col(s_stuff);
     tgetent(buf, getenv("TERM"));
     col = tgetnum("co");
     if (s_stuff->col_len >= col)
@@ -134,7 +129,7 @@ int    check_size(t_select *s_stuff)
         while (s_stuff->col_len >= col)
         {
             s_stuff->rn++;
-            s_stuff->col_len /= 2;
+            s_stuff->col_len /= 3;
         }
     }
     else
