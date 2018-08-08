@@ -32,13 +32,14 @@ int get_row_col(t_select *s_stuff)
     i = 0;
     while (s_stuff->args[i])
         i++;
-    s_stuff->col_len = 4 * i;
+    s_stuff->col_len = 0;
     i = 0;
     while (s_stuff->args[i])
     {
         s_stuff->col_len += ft_strlen(s_stuff->args[i]);
         i++;
     }
+    s_stuff->col_len += i;
     s_stuff->row_len = i;
     return (i);
 }

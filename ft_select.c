@@ -61,6 +61,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
         s_stuff->selected[i] = 0;
         i++;
     }
+    s_stuff->rn = 1;
     return (1);
 }
 
@@ -92,7 +93,7 @@ int     read_input(t_select *s_stuff)
             ft_printf("down\n");
         else if (c == SPACE || c == SPACE2)
             get_space(ap, s_stuff);
-        else if (c == DEL || c== DEL2 || c == DEL3)
+        else if (c == 0 || c == DEL || c== DEL2 || c == DEL3)
         {
             if (get_del(ap, s_stuff) == 0)
                 return (1);
@@ -114,6 +115,7 @@ int     read_input(t_select *s_stuff)
 
 int    main(int argc, char *argv[])
 {
+    int      col;
     t_select s_stuff;
 
     if (argc <= 1)
@@ -123,6 +125,12 @@ int    main(int argc, char *argv[])
     }
     initialize_select(&s_stuff, argv, argc);
     clear_scr();
+    get_row_col(&s_stuff);
+    col = tgetnum("co");
+    if (s_stuff.col_len >= col)
+    {
+
+    }
     read_input(&s_stuff);
     return (0);
 }
