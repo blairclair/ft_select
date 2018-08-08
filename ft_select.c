@@ -65,11 +65,6 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     return (1);
 }
 
-void    sighand(int i)
-{
-    printf("hi sig: %d\n", i);
-}
-
 
 int     read_input(t_select *s_stuff)
 {
@@ -81,10 +76,13 @@ int     read_input(t_select *s_stuff)
     
     ap = buf2;
     num = get_row_col(s_stuff);
-    printf("one: %d\n",check_size(s_stuff));
+    printf("c: %d\n", s_stuff->col_len);
+    printf("s: %d\n", check_size(s_stuff));
+    get_row_col(s_stuff);
+  //  clear_scr();
     rep2(s_stuff, num, ap);
     tgetent(buf, getenv("TERM"));
-   while (c = 0, (read(0, &c, 6)) != 0)
+    while (c = 0, (read(0, &c, 6)) != 0)
     {
         if (c == LEFT)
             get_left(ap, s_stuff);
@@ -96,6 +94,8 @@ int     read_input(t_select *s_stuff)
             ft_printf("down\n");
         else if (c == SPACE)
             get_space(ap, s_stuff);
+        else if (c == ESCAPE)
+            break ;
         else if (c == 0 || c == DEL || c== DEL2)
         {
             if (get_del(ap, s_stuff) == 0)
@@ -107,35 +107,32 @@ int     read_input(t_select *s_stuff)
             break ;
         }
         else
-            {
-                ft_printf("%ud\n", c);//delete before submit
-                break ;
-            }
+            break ;
     }
-   tgetstr("ue", &ap);
-printf("two: %d\n",check_size(s_stuff));
+    tgetstr("ue", &ap);
     return (1);
 }
 
 int    check_size(t_select *s_stuff)
 {
-    int col;
-    char buf[1024];
+    int     col;
+    char    buf[1024];
+    int     tmpcol;
+
     get_row_col(s_stuff);
     tgetent(buf, getenv("TERM"));
     col = tgetnum("co");
-    if (s_stuff->col_len >= col)
+    tmpcol = s_stuff->col_len;
+    if (tmpcol >= col)
     {
-        while (s_stuff->col_len >= col)
+        while (tmpcol >= col)
         {
             s_stuff->rn++;
-            s_stuff->col_len /= 3;
+            tmpcol /= 2;
         }
     }
     else
-    {
         s_stuff->rn = 1;
-    }
     return (col);
 }
 
@@ -150,8 +147,6 @@ int    main(int argc, char *argv[])
     }
     initialize_select(&s_stuff, argv, argc);
     clear_scr();
-    get_row_col(&s_stuff);
-    check_size(&s_stuff);
     read_input(&s_stuff);
     return (0);
 }

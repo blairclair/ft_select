@@ -24,10 +24,7 @@
 #define ENTER1 0xA
 #define DEL 0x7F
 #define DEL2 0x7E335B1B
-
-
-# define KEY_ESCAPE 0x1B
-# define KEY_ENTER 0xA
+# define ESCAPE 0x1B
 
 typedef struct  s_select
 {

@@ -12,17 +12,6 @@
 
 #include "ft_select.h"
 
-void    print_select_args(t_select *s_stuff)
-{
-    int i;
-
-    i = 0;
-    while (s_stuff->args[i])
-    {
-        ft_printf("%s ", s_stuff->args[i]);
-        i++;
-    }
-}
 
 void reprint_args(int i, t_select *s_stuff, char *ap)
 {
@@ -84,6 +73,8 @@ void    rep2(t_select *s_stuff, int num, char *ap)
                 break ;
             while (i < rn)
             {
+                if (i >= num)
+                    break ;
                 reprint_args(i, s_stuff, ap);
                 i++;
             }
