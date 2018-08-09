@@ -123,20 +123,38 @@ int    check_size(t_select *s_stuff)
 
     tgetent(buf, getenv("TERM"));
     col = tgetnum("co");
-    if (s_stuff->col_len >= col)
+    if (s_stuff->col_len > col)
     {
-        while (s_stuff->col_len >= col)
+        while (s_stuff->col_len > col)
         {
             s_stuff->rn *= 2;
             s_stuff->col_len /= 2;
             s_stuff->wc /= 2;
         }
     }
+    if (s_stuff->col_len + 5 < col)
+    {
+        while (s_stuff->col_len < col)
+        {
+            s_stuff->col_len *= 2;
+            s_stuff->wc *= 2;
+            s_stuff->rn /=2;
+        }
+    }
     return (col);
 }
+/*
+int check2(t_select *s_stuff)
+{
+      int     col;
+    char    buf[1024];
 
-
-
+    tgetent(buf, getenv("TERM"));
+    col = tgetnum("co");
+  
+    return (0);
+}
+*/
 int    main(int argc, char *argv[])
 {
     t_select s_stuff;

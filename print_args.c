@@ -55,6 +55,7 @@ void    rep2(t_select *s_stuff, int num, char *ap)
     int arg;
     int row;
 
+    check_size(s_stuff);
     row = tgetnum("li");
     arg = 0;
     j = 0;
