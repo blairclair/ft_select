@@ -85,10 +85,7 @@ int     read_input(t_select *s_stuff)
     while (c = 0, (read(0, &c, 6)) != 0)
     {
         if (c == LEFT)
-        {
-            if (!get_left(ap, s_stuff))
-                return (0);
-        }
+            get_left(ap, s_stuff);
         else if (c == RIGHT)
             get_right(ap, s_stuff);
         else if (c == UP)
@@ -120,6 +117,7 @@ int    check_size(t_select *s_stuff)
 {
     int     col;
     char    buf[1024];
+    static int check = 0;
 
     tgetent(buf, getenv("TERM"));
     col = tgetnum("co");
@@ -131,8 +129,9 @@ int    check_size(t_select *s_stuff)
             s_stuff->col_len /= 2;
             s_stuff->wc /= 2;
         }
+        check = 1;
     }
-    if (s_stuff->col_len + 5 < col)
+    if (s_stuff->col_len < col && check == 1)
     {
         while (s_stuff->col_len < col)
         {
@@ -140,21 +139,11 @@ int    check_size(t_select *s_stuff)
             s_stuff->wc *= 2;
             s_stuff->rn /=2;
         }
+        check = 0;
     }
     return (col);
 }
-/*
-int check2(t_select *s_stuff)
-{
-      int     col;
-    char    buf[1024];
 
-    tgetent(buf, getenv("TERM"));
-    col = tgetnum("co");
-  
-    return (0);
-}
-*/
 int    main(int argc, char *argv[])
 {
     t_select s_stuff;
