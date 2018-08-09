@@ -65,10 +65,12 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     }
     s_stuff->rn = 1;
     i = 0;
+    s_stuff->wc = 0;
     while (s_stuff->args[i])
     {
         s_stuff->col_len += ft_strlen(s_stuff->args[i]);
         i++;
+        s_stuff->wc++;
     }
     return (1);
 }
@@ -81,17 +83,18 @@ int     read_input(t_select *s_stuff)
     char buf2[30];
     char    *ap;
     int     num;
-      clear_scr();
-    ap = buf2;
+    
     num = get_row_col(s_stuff);
-    get_row_col(s_stuff);
-  
+    ap = buf2;
     rep2(s_stuff, num, ap);
     tgetent(buf, getenv("TERM"));
     while (c = 0, (read(0, &c, 6)) != 0)
     {
         if (c == LEFT)
-            get_left(ap, s_stuff);
+        {
+            if (!get_left(ap, s_stuff))
+                return (0);
+        }
         else if (c == RIGHT)
             get_right(ap, s_stuff);
         else if (c == UP)
@@ -123,27 +126,22 @@ int    check_size(t_select *s_stuff)
 {
     int     col;
     char    buf[1024];
-   // int     tmpcol;
 
-    get_row_col(s_stuff);
     tgetent(buf, getenv("TERM"));
     col = tgetnum("co");
-   // tmpcol = s_stuff->col_len;
     if (s_stuff->col_len >= col)
     {
         while (s_stuff->col_len >= col)
         {
-            s_stuff->rn++;
+            s_stuff->rn *= 2;
             s_stuff->col_len /= 2;
+            s_stuff->wc /= 2;
         }
-    }
-    else
-    {
-        s_stuff->rn = 1;
-        return (-1);
     }
     return (col);
 }
+
+
 
 int    main(int argc, char *argv[])
 {
@@ -156,6 +154,10 @@ int    main(int argc, char *argv[])
     }
     initialize_select(&s_stuff, argv, argc);
     clear_scr();
+    check_size(&s_stuff);
     read_input(&s_stuff);
+    printf("rn: %d\n", s_stuff.rn);
+    printf("row: %d\n", tgetnum("li"));
+    printf("col: %d\n", s_stuff.col_len);
     return (0);
 }

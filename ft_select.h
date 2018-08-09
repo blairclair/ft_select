@@ -34,6 +34,7 @@ typedef struct  s_select
     int     pos;
     int     *selected;
     int     rn;
+    int     wc;
 }               t_select;                   
 
 void    clear_scr();

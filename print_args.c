@@ -52,11 +52,19 @@ void    rep2(t_select *s_stuff, int num, char *ap)
 {
     int i;
     int j;
-    int rn;
+    int arg;
+    int row;
 
-    rn = num / s_stuff->rn;
+    row = tgetnum("li");
+    arg = 0;
     j = 0;
     i = 0;
+    if (s_stuff->rn > row)
+    {
+        clear_scr();
+        ft_printf("please expand window\n");
+        return ;
+    }
     if (s_stuff->rn == 1)
     {
         while (i < num)
@@ -69,17 +77,14 @@ void    rep2(t_select *s_stuff, int num, char *ap)
     {
         while (j < s_stuff->rn)
         {
-            if (i >= num)
-                break ;
-            while (i < rn)
+            i = 0;
+            while (i < s_stuff->wc)
             {
-                if (i >= num)
-                    break ;
-                reprint_args(i, s_stuff, ap);
+                reprint_args(arg, s_stuff, ap);
                 i++;
+                arg++;
             }
             ft_printf("\n");
-            rn++;
             j++;
         }
     }
