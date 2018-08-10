@@ -82,8 +82,11 @@ int     read_input(t_select *s_stuff)
     ap = buf2;
     rep2(s_stuff, num, ap);
     tgetent(buf, getenv("TERM"));
-    while (c = 0, (read(0, &c, 6)) != 0)
+    while (1)
     {
+        check_size(s_stuff);
+        c = 0;
+        read(0, &c, 6);
         if (c == LEFT)
             get_left(ap, s_stuff);
         else if (c == RIGHT)
@@ -157,8 +160,5 @@ int    main(int argc, char *argv[])
     clear_scr();
     check_size(&s_stuff);
     read_input(&s_stuff);
-    printf("rn: %d\n", s_stuff.rn);
-    printf("row: %d\n", tgetnum("li"));
-    printf("col: %d\n", s_stuff.col_len);
     return (0);
 }
