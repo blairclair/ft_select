@@ -78,6 +78,8 @@ int     read_input(t_select *s_stuff)
     char    *ap;
     int     num;
     
+    clear_scr();
+
     num = get_row_col(s_stuff);
     ap = buf2;
     rep2(s_stuff, num, ap);
@@ -109,8 +111,8 @@ int     read_input(t_select *s_stuff)
             get_enter(s_stuff);
             break ;
         }
-        else
-            break ;
+    //    else
+      //      ft_printf("select a better key\n");
     }
     tgetstr("ue", &ap);
     return (1);
@@ -150,15 +152,15 @@ int    check_size(t_select *s_stuff)
 int    main(int argc, char *argv[])
 {
     t_select s_stuff;
+    static struct termios *oldterm;
 
+    tcgetattr(0, oldterm);
     if (argc <= 1)
     {
         ft_printf("more args please\n");
         return (0);
     }
     initialize_select(&s_stuff, argv, argc);
-    clear_scr();
-    check_size(&s_stuff);
     read_input(&s_stuff);
     return (0);
 }

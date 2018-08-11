@@ -49,7 +49,9 @@ int get_enter(t_select *s_stuff)
     while (s_stuff->args[i])
     {
         if (s_stuff->selected[i] == 1)
+        {
             ft_printf("%s ", s_stuff->args[i]);
+        }
         i++;
     }
     ft_printf("\n");
