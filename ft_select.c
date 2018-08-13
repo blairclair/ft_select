@@ -52,7 +52,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     j = 0;
     longest = get_longest_arg(argv);
     tgetent(buf, getenv("TERM"));
-    tcgetattr(0, &s_stuff->oldterm);
+    tcgetattr(0, s_stuff->oldterm);
     tcgetattr(0, &newterm);
     newterm.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(0, TCSANOW, &newterm);
@@ -74,17 +74,12 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
 int     read_input(t_select *s_stuff)
 {
     unsigned long c;
-  //  char buf[1024];
     char buf2[30];
     char    *ap;
     int     num;
-    
-  //  clear_scr();
 
     num = get_row_col(s_stuff);
     ap = buf2;
-   
-   // tgetent(buf, getenv("TERM"));
     while (1)
     {
          rep2(s_stuff, num, ap);
@@ -154,18 +149,15 @@ int    check_size(t_select *s_stuff)
 int    main(int argc, char *argv[])
 {
     t_select s_stuff;
-  //  static struct termios *oldterm;
 
-    //tcgetattr(0, oldterm);
-    
-    //ft_putstr_fd("hithere", 0);
+    sigrab();
     if (argc <= 1)
     {
         ft_printf("more args please\n");
         return (0);
     }
     initialize_select(&s_stuff, argv, argc);
-    first_print(&s_stuff);
     read_input(&s_stuff);
+    tcsetattr(0, TCSANOW, &*s_stuff.oldterm);
     return (0);
 }

@@ -52,6 +52,7 @@ print_args.c\
 get_left.c\
 get_right.c\
 get_space_enter.c\
+siggrab.c\
 ft_select.c
 NAME=ft_select
 

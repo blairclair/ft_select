@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FT_SELECT_H
+# define FT_SELECT_H
 #include "libft/libft.h"
 #include "libft/printf_functions/ft_printf.h"
 #include <termcap.h>
@@ -35,7 +37,7 @@ typedef struct  s_select
     int     *selected;
     int     rn;
     int     wc;
-    struct termios oldterm;
+    struct termios *oldterm;
 }               t_select;                   
 
 void    clear_scr();
@@ -50,3 +52,6 @@ int     get_del(char *ap, t_select *s_stuff);
 void    rep2(t_select *s_stuff, int num, char *ap);
 int     check_size(t_select *s_stuff);
 int     first_print(t_select *s_stuff);
+void    sigrab();
+
+#endif
