@@ -21,7 +21,7 @@ void    clear_scr()
     
     ap = buf2;
     clearstr = tgetstr("cl", &ap);
-    ft_printf("%s", clearstr);
+    ft_putstr_fd(clearstr, 0);
 }
 
 int get_row_col(t_select *s_stuff)
