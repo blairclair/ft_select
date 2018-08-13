@@ -59,7 +59,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     initialize_s_stuff(s_stuff, get_longest_arg(argv), argc);
     while (i < argc)
     {
-        s_stuff->args[j] = ft_memalloc(ft_strlen(argv[i]));
+      //  s_stuff->args[j] = ft_memalloc(ft_strlen(argv[i]));
         s_stuff->args[j] = argv[i];
         s_stuff->col_len += ft_strlen(s_stuff->args[j]);
         s_stuff->selected[j] = 0;
@@ -69,7 +69,6 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     }
     return (1);
 }
-
 
 int     read_input(t_select *s_stuff)
 {

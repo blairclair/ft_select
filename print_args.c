@@ -90,17 +90,3 @@ void    rep2(t_select *s_stuff, int num, char *ap)
         }
     }
 }
-
-int first_print(t_select *s_stuff)
-{
-    int i;
-
-    i = 0;
-    while (s_stuff->args[i])
-    {
-        ft_putstr_fd(s_stuff->args[i], 0);
-        ft_putchar_fd(' ', 0);
-        i++;
-    }
-    return (1);
-}
