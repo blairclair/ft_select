@@ -17,7 +17,6 @@ int get_right(char *ap, t_select *s_stuff)
     int         num;
     
     num = get_row_col(s_stuff);
-    clear_scr();
     if (s_stuff->pos >= num - 1 || s_stuff->pos == 2000 || s_stuff->pos < 0)
         s_stuff->pos = 0;
     else

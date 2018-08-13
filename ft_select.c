@@ -52,10 +52,11 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     j = 0;
     longest = get_longest_arg(argv);
     tgetent(buf, getenv("TERM"));
+    tcgetattr(0, &s_stuff->oldterm);
     tcgetattr(0, &newterm);
-    newterm.c_lflag &= ~(ICANON);
+    newterm.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(0, TCSANOW, &newterm);
-    initialize_s_stuff(s_stuff, longest, argc);
+    initialize_s_stuff(s_stuff, get_longest_arg(argv), argc);
     while (i < argc)
     {
         s_stuff->args[j] = ft_memalloc(ft_strlen(argv[i]));
@@ -73,22 +74,22 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
 int     read_input(t_select *s_stuff)
 {
     unsigned long c;
-    char buf[1024];
+  //  char buf[1024];
     char buf2[30];
     char    *ap;
     int     num;
     
-    clear_scr();
+  //  clear_scr();
 
     num = get_row_col(s_stuff);
     ap = buf2;
-    rep2(s_stuff, num, ap);
-    tgetent(buf, getenv("TERM"));
+   
+   // tgetent(buf, getenv("TERM"));
     while (1)
     {
-        check_size(s_stuff);
+         rep2(s_stuff, num, ap);
         c = 0;
-        read(0, &c, 6);
+        read(STDERR_FILENO, &c, 6);
         if (c == LEFT)
             get_left(ap, s_stuff);
         else if (c == RIGHT)
@@ -111,8 +112,9 @@ int     read_input(t_select *s_stuff)
             get_enter(s_stuff);
             break ;
         }
-    //    else
-      //      ft_printf("select a better key\n");
+           else
+            ft_printf("select a better key\n");
+        clear_scr();
     }
     tgetstr("ue", &ap);
     return (1);
@@ -152,15 +154,18 @@ int    check_size(t_select *s_stuff)
 int    main(int argc, char *argv[])
 {
     t_select s_stuff;
-    static struct termios *oldterm;
+  //  static struct termios *oldterm;
 
-    tcgetattr(0, oldterm);
+    //tcgetattr(0, oldterm);
+    
+    //ft_putstr_fd("hithere", 0);
     if (argc <= 1)
     {
         ft_printf("more args please\n");
         return (0);
     }
     initialize_select(&s_stuff, argv, argc);
+    first_print(&s_stuff);
     read_input(&s_stuff);
     return (0);
 }

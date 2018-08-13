@@ -19,7 +19,6 @@ int get_del(char *ap, t_select *s_stuff)
     int         j;
     int         rn;
     
-    clear_scr();
     num = get_row_col(s_stuff);
     if (num <= 0)
         return (0);
@@ -46,6 +45,7 @@ int get_enter(t_select *s_stuff)
     int i;
 
     i = 0;
+    ft_printf("\n");
     while (s_stuff->args[i])
     {
         if (s_stuff->selected[i] == 1)
@@ -63,7 +63,6 @@ int get_space(char *ap, t_select *s_stuff)
     int         num;
     
     num = get_row_col(s_stuff);
-    clear_scr();
     if (s_stuff->selected[s_stuff->pos] == 0)
             s_stuff->selected[s_stuff->pos] = 1;
     else

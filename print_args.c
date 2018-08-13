@@ -20,32 +20,32 @@ void reprint_args(int i, t_select *s_stuff, char *ap)
     ps = tgetstr("cm", &ap);
     if (i == s_stuff->pos && s_stuff->selected[i] == 1)
     {
-        ft_printf("%s",tgetstr("us", &ap));
-        ft_printf("%s",tgetstr("so", &ap));
-        ft_printf("%s", s_stuff->args[i]);
-        ft_printf("%s",tgetstr("se", &ap));
-        ft_printf("%s",tgetstr("ue", &ap));
+        ft_putstr_fd(tgetstr("us", &ap), 0);
+        ft_putstr_fd(tgetstr("so", &ap), 0);
+        ft_putstr_fd(s_stuff->args[i], 0);
+        ft_putstr_fd(tgetstr("se", &ap), 0);
+        ft_putstr_fd(tgetstr("ue", &ap), 0);
     }
     else if (i == s_stuff->pos && s_stuff->selected[i] == 0)
     {
-        ft_printf("%s",tgetstr("us", &ap));
-        ft_printf("%s", s_stuff->args[i]);
-        ft_printf("%s",tgetstr("ue", &ap));
+        ft_putstr_fd(tgetstr("us", &ap), 0);
+        ft_putstr_fd(s_stuff->args[i], 0);
+        ft_putstr_fd(tgetstr("ue", &ap), 0);
     }
     else if (i != s_stuff->pos && s_stuff->selected[i] == 1)
     {
-        ft_printf("%s",tgetstr("so", &ap));
-        ft_printf("%s", s_stuff->args[i]);
-        ft_printf("%s",tgetstr("se", &ap));
+        ft_putstr_fd(tgetstr("so", &ap), 0);
+        ft_putstr_fd(s_stuff->args[i], 0);
+        ft_putstr_fd(tgetstr("se", &ap), 0);
     }
     else if (s_stuff->args[i] == NULL)
     {
-        //printf("weird: %s", s_stuff->args[i]);
+        //ft_putstr_fd("weird: %s", s_stuff->args[i]);
         return ;
     }
     else
-        ft_printf("%s", s_stuff->args[i]);
-    ft_printf(" ");
+        ft_putstr_fd(s_stuff->args[i], 0);
+    ft_putstr_fd(" ", 0);
 }
 
 void    rep2(t_select *s_stuff, int num, char *ap)
@@ -56,14 +56,14 @@ void    rep2(t_select *s_stuff, int num, char *ap)
     int row;
 
     check_size(s_stuff);
+    clear_scr();
     row = tgetnum("li");
     arg = 0;
     j = 0;
     i = 0;
     if (s_stuff->rn > row)
     {
-        clear_scr();
-        ft_printf("please expand window\n");
+        ft_putstr_fd("please expand window\n", 0);
         return ;
     }
     if (s_stuff->rn == 1)
@@ -85,8 +85,22 @@ void    rep2(t_select *s_stuff, int num, char *ap)
                 i++;
                 arg++;
             }
-            ft_printf("\n");
+            ft_putstr_fd("\n", 0);
             j++;
         }
     }
+}
+
+int first_print(t_select *s_stuff)
+{
+    int i;
+
+    i = 0;
+    while (s_stuff->args[i])
+    {
+        ft_putstr_fd(s_stuff->args[i], 0);
+        ft_putchar_fd(' ', 0);
+        i++;
+    }
+    return (1);
 }
