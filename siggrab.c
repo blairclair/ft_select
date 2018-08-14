@@ -22,6 +22,9 @@ void sighandle(int i)
     tgetent(buf, getenv("TERM"));
     row = tgetnum("li");
     col = tgetnum("co");
+    
+    printf("row: %d\n", row);
+    printf("grow: %d\n", g_rowlen);
     if (g_rowlen > row)
     {
         clear_scr();
