@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-int get_right(char *ap, t_select *s_stuff)
+int get_right(t_select *s_stuff)
 {
     int         num;
     
@@ -21,6 +21,5 @@ int get_right(char *ap, t_select *s_stuff)
         s_stuff->pos = 0;
     else
         s_stuff->pos++;
-    rep2(s_stuff, num, ap);
     return (1);
 }

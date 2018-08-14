@@ -48,14 +48,16 @@ void reprint_args(int i, t_select *s_stuff, char *ap)
     ft_putstr_fd(" ", 0);
 }
 
-void    rep2(t_select *s_stuff, int num, char *ap)
+void    rep2(t_select *s_stuff, char *ap)
 {
     int i;
     int j;
     int arg;
     int row;
+    int num;
 
     //check_size(s_stuff);
+    num = get_row_col(s_stuff);
     clear_scr();
     row = tgetnum("li");
     arg = 0;
@@ -79,7 +81,7 @@ void    rep2(t_select *s_stuff, int num, char *ap)
         while (j < g_rowlen)
         {
             i = 0;
-            while (i < s_stuff->wc)
+            while (i < g_wc)
             {
                 reprint_args(arg, s_stuff, ap);
                 i++;

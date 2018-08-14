@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-int get_del(char *ap, t_select *s_stuff)
+int get_del(t_select *s_stuff)
 {
     int         i;
     static int  num = 0;
@@ -36,7 +36,7 @@ int get_del(char *ap, t_select *s_stuff)
     num--;
     if (s_stuff->pos > 0)
         s_stuff->pos--;
-    rep2(s_stuff, num, ap);
+   // rep2(s_stuff, ap);
     return (1);
 }
 
@@ -58,7 +58,7 @@ int get_enter(t_select *s_stuff)
     return (1);
 }
 
-int get_space(char *ap, t_select *s_stuff)
+int get_space(t_select *s_stuff)
 {
     int         num;
     
@@ -67,6 +67,6 @@ int get_space(char *ap, t_select *s_stuff)
             s_stuff->selected[s_stuff->pos] = 1;
     else
         s_stuff->selected[s_stuff->pos] = 0;
-    rep2(s_stuff, num, ap);
+ //   rep2(s_stuff, ap);
     return (1);
 }

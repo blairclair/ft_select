@@ -37,7 +37,7 @@ void    initialize_s_stuff(t_select *s_stuff, int longest, int argc)
     s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
     s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
     g_rowlen = 1;
-    s_stuff->wc = 0;
+    g_wc = 0;
 }
 
 int     initialize_select(t_select *s_stuff, char **argv, int argc)
@@ -67,7 +67,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
         s_stuff->selected[j] = 0;
         i++;
         j++;
-        s_stuff->wc++;
+        g_wc++;
     }
     return (1);
 }
@@ -84,25 +84,20 @@ int     read_input(t_select *s_stuff)
     while (1)
     {
         sigrab();
-      //  check_size(s_stuff);
-         rep2(s_stuff, num, ap);
+        rep2(s_stuff, ap);
         c = 0;
         read(STDERR_FILENO, &c, 6);
         if (c == LEFT)
-            get_left(ap, s_stuff);
+            get_left(s_stuff);
         else if (c == RIGHT)
-            get_right(ap, s_stuff);
-        else if (c == UP)
-            ft_printf("up\n");
-        else if (c == DOWN)
-            ft_printf("down\n");
+            get_right(s_stuff);
         else if (c == SPACE)
-            get_space(ap, s_stuff);
+            get_space(s_stuff);
         else if (c == ESCAPE)
             break ;
         else if (c == 0 || c == DEL || c== DEL2)
         {
-            if (get_del(ap, s_stuff) == 0)
+            if (get_del(s_stuff) == 0)
                 return (1);
         }
         else if (c == ENTER1)
@@ -118,49 +113,9 @@ int     read_input(t_select *s_stuff)
     return (1);
 }
 
-int    check_size(t_select *s_stuff)
-{
-    int     col;
-    char    buf[1024];
-    static int check = 0;
-    int     row;
-
-    tgetent(buf, getenv("TERM"));
-    row = tgetnum("li");
-    col = tgetnum("co");
-    if (g_rowlen > row)
-    {
-        clear_scr();
-        ft_putstr_fd("please expand window\n", 0);
-        return (1);
-    }
-    if (g_collen > col)
-    {
-        while (g_collen > col)
-        {
-            g_rowlen *= 2;
-            g_collen /= 2;
-            s_stuff->wc /= 2;
-        }
-        check = 1;
-    }
-    if (g_collen < col && check == 1)
-    {
-        while (g_collen < col)
-        {
-            g_collen *= 2;
-            s_stuff->wc *= 2;
-            g_rowlen /=2;
-        }
-        check = 0;
-    }
-    return (col);
-}
 
 int    main(int argc, char *argv[])
 {
-  //  t_select s_stuff;
-
     sigrab();
     if (argc <= 1)
     {

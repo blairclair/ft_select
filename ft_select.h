@@ -20,8 +20,8 @@
 #include <signal.h>
 #define LEFT 0x445B1B
 #define RIGHT 0x435B1B
-#define UP 0x415B1B
-#define DOWN 0x425B1B
+//#define UP 0x415B1B
+//#define DOWN 0x425B1B
 #define SPACE 0x20
 #define ENTER1 0xA
 #define DEL 0x7F
@@ -30,7 +30,7 @@
 
 int g_rowlen;
 int g_collen;
-
+int g_wc;
 typedef struct  s_select
 {
     char    **args;
@@ -39,7 +39,7 @@ typedef struct  s_select
     int     pos;
     int     *selected;
   //  int     rn;
-    int     wc;
+   // int     wc;
     struct termios *oldterm;
 }               t_select;                   
 
@@ -48,14 +48,14 @@ t_select s_stuff;
 void    clear_scr();
 void    print_select_args(t_select *s_stuff);
 int     get_row_col(t_select *s_stuff);
-int     get_left(char *ap, t_select *s_stuff);
-int     get_right(char *ap, t_select *s_stuff);
-int     get_space(char *ap, t_select *s_stuff);
+int     get_left(t_select *s_stuff);
+int     get_right(t_select *s_stuff);
+int     get_space(t_select *s_stuff);
 void    reprint_args(int i, t_select *s_stuff, char *ap);
 int     get_enter(t_select *s_stuff);
-int     get_del(char *ap, t_select *s_stuff);
-void    rep2(t_select *s_stuff, int num, char *ap);
-int     check_size(t_select *s_stuff);
+int     get_del(t_select *s_stuff);
+void    rep2(t_select *s_stuff, char *ap);
+
 int     first_print(t_select *s_stuff);
 void    sigrab();
 

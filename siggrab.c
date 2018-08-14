@@ -18,14 +18,12 @@ void sighandle(int i)
     char    buf[1024];
     static int check = 0;
     int     row;
-     char buf2[30];
+   //  char buf2[30];
     char    *ap;
-    int     num;
 
-    num = get_row_col(&s_stuff);
-    ap = buf2;
 
-    
+   
+    ap = ft_memalloc(30);
     tgetent(buf, getenv("TERM"));
     row = tgetnum("li");
     col = tgetnum("co");
@@ -40,7 +38,7 @@ void sighandle(int i)
         {
             g_rowlen *= 2;
             g_collen /= 2;
-          //  s_stuff->wc /= 2;
+            g_wc /= 2;
         }
         check = 1;
     }
@@ -49,13 +47,13 @@ void sighandle(int i)
         while (g_collen < col)
         {
             g_collen *= 2;
-            //s_stuff->wc *= 2;
+            g_wc *= 2;
             g_rowlen /=2;
         }
         check = 0;
     } 
   i++;
-    rep2(&s_stuff, num, ap);
+    rep2(&s_stuff, ap);
 }
 
 void    sigrab()

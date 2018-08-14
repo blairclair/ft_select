@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-int get_left(char *ap, t_select *s_stuff)
+int get_left(t_select *s_stuff)
 {
     int         num;
 
@@ -21,6 +21,5 @@ int get_left(char *ap, t_select *s_stuff)
         s_stuff->pos = get_row_col(s_stuff) - 1;
     else
         s_stuff->pos--;
-     rep2(s_stuff, num, ap);
     return (1);
 }
