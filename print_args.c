@@ -62,7 +62,6 @@ void    rep2(t_select *s_stuff)
     i = 0;
     g_collen = 0;
     g_rowlen = 1;
-   // printf("col: %d\n", col);
     clear_scr();
     while (i < g_wc)
     {
@@ -70,8 +69,9 @@ void    rep2(t_select *s_stuff)
         {
             clear_scr();
             ft_putstr_fd("please expand window\n", 0);
+            break ;
         }
-        if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
+        else if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
         {
             ft_printf("\n");
             g_rowlen++;
@@ -79,10 +79,9 @@ void    rep2(t_select *s_stuff)
         }
         else
         {
-           // printf("g: %d ", g_collen);
             reprint_args(i, s_stuff);
             g_collen += ft_strlen(s_stuff->args[i]) + 1;
+            i++;
         }
-        i++;
     }
 }

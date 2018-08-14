@@ -14,9 +14,17 @@
 
 int get_right(t_select *s_stuff)
 {
+    int     col;
+    //int     row;
+    char    buf[1024];
 
+    tgetent(buf, getenv("TERM"));
+    col = tgetnum("co");
+   
     if (s_stuff->pos >= g_wc - 1 || s_stuff->pos < 0)
         s_stuff->pos = 0;
+  //  else if (g_collen + (int)ft_strlen(s_stuff->args[s_stuff->pos + 1]) >= col)
+    //    clear_scr();   
     else
         s_stuff->pos++;
     return (1);
