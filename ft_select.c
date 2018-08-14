@@ -30,15 +30,6 @@ int     get_longest_arg(char **argv)
     return (num);
 }
 
-void    initialize_s_stuff(t_select *s_stuff, int longest, int argc)
-{
-    g_collen = 0;
-    s_stuff->pos = 0;
-    s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
-    s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
-    g_rowlen = 1;
-    g_wc = 0;
-}
 
 int     initialize_select(t_select *s_stuff, char **argv, int argc)
 {
@@ -48,20 +39,22 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     static struct termios newterm;
     char    buf[1024];
     
+    longest = get_longest_arg(argv);
     i = 1;
     j = 0;
     g_collen = 0;
     g_rowlen = 1;
-    longest = get_longest_arg(argv);
+    g_wc = 0;
+    s_stuff->pos = 0;
+    s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
+    s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
     tgetent(buf, getenv("TERM"));
     tcgetattr(0, s_stuff->oldterm);
     tcgetattr(0, &newterm);
     newterm.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(0, TCSANOW, &newterm);
-    initialize_s_stuff(s_stuff, get_longest_arg(argv), argc);
     while (i < argc)
     {
-      //  s_stuff->args[j] = ft_memalloc(ft_strlen(argv[i]));
         s_stuff->args[j] = argv[i];
         g_collen += ft_strlen(s_stuff->args[j]);
         s_stuff->selected[j] = 0;
@@ -83,7 +76,6 @@ int     read_input(t_select *s_stuff)
     ap = buf2;
     while (1)
     {
-        sigrab();
         rep2(s_stuff, ap);
         c = 0;
         read(STDERR_FILENO, &c, 6);
