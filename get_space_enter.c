@@ -51,9 +51,6 @@ int get_enter(t_select *s_stuff)
 
 int get_space(t_select *s_stuff)
 {
-    int         num;
-    
-    num = get_row_col(s_stuff);
     if (s_stuff->selected[s_stuff->pos] == 0)
             s_stuff->selected[s_stuff->pos] = 1;
     else

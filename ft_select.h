@@ -47,7 +47,6 @@ t_select s_stuff;
 
 void    clear_scr();
 void    print_select_args(t_select *s_stuff);
-int     get_row_col(t_select *s_stuff);
 int     get_left(t_select *s_stuff);
 int     get_right(t_select *s_stuff);
 int     get_space(t_select *s_stuff);

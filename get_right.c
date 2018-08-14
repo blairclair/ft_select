@@ -14,10 +14,8 @@
 
 int get_right(t_select *s_stuff)
 {
-    int         num;
-    
-    num = get_row_col(s_stuff);
-    if (s_stuff->pos >= num - 1 || s_stuff->pos == 2000 || s_stuff->pos < 0)
+
+    if (s_stuff->pos >= g_wc - 1 || s_stuff->pos < 0)
         s_stuff->pos = 0;
     else
         s_stuff->pos++;

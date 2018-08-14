@@ -62,6 +62,7 @@ void    rep2(t_select *s_stuff)
     i = 0;
     g_collen = 0;
     g_rowlen = 1;
+   // printf("col: %d\n", col);
     clear_scr();
     while (i < g_wc)
     {
@@ -72,14 +73,15 @@ void    rep2(t_select *s_stuff)
         }
         if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
         {
-            ft_putchar_fd('\n', 0);
+            ft_printf("\n");
             g_rowlen++;
             g_collen = 0;
         }
         else
         {
+           // printf("g: %d ", g_collen);
             reprint_args(i, s_stuff);
-            g_collen += ft_strlen(s_stuff->args[i]);
+            g_collen += ft_strlen(s_stuff->args[i]) + 1;
         }
         i++;
     }

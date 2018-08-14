@@ -23,13 +23,3 @@ void    clear_scr()
     clearstr = tgetstr("cl", &ap);
     ft_putstr_fd(clearstr, 0);
 }
-
-int get_row_col(t_select *s_stuff)
-{
-    int i;
-
-    i = 0;
-    while (s_stuff->args[i])
-        i++;
-    return (i);
-}

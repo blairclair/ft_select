@@ -56,7 +56,6 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     while (i < argc)
     {
         s_stuff->args[j] = argv[i];
-        g_collen += ft_strlen(s_stuff->args[j]);
         s_stuff->selected[j] = 0;
         i++;
         j++;
@@ -70,9 +69,7 @@ int     read_input(t_select *s_stuff)
     unsigned long c;
     char buf2[30];
     char    *ap;
-    int     num;
 
-    num = get_row_col(s_stuff);
     ap = buf2;
     while (1)
     {
