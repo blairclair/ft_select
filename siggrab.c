@@ -14,46 +14,8 @@
 
 void sighandle(int i)
 {
-    int     col;
-    char    buf[1024];
-    static int check = 0;
-    int     row;
-   //  char buf2[30];
-    char    *ap;
-
-
-   
-    ap = ft_memalloc(30);
-    tgetent(buf, getenv("TERM"));
-    row = tgetnum("li");
-    col = tgetnum("co");
-    if (g_rowlen > row)
-    {
-        clear_scr();
-        ft_putstr_fd("please expand window\n", 0);
-    }
-    if (g_collen > col)
-    {
-        while (g_collen > col)
-        {
-            g_rowlen *= 2;
-            g_collen /= 2;
-            g_wc /= 2;
-        }
-        check = 1;
-    }
-    if (g_collen < col && check == 1)
-    {
-        while (g_collen < col)
-        {
-            g_collen *= 2;
-            g_wc *= 2;
-            g_rowlen /=2;
-        }
-        check = 0;
-    } 
-  i++;
-    rep2(&s_stuff, ap);
+    i++;
+    rep2(&s_stuff);
 }
 
 void    sigrab()

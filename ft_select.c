@@ -76,7 +76,7 @@ int     read_input(t_select *s_stuff)
     ap = buf2;
     while (1)
     {
-        rep2(s_stuff, ap);
+        rep2(s_stuff);
         c = 0;
         read(STDERR_FILENO, &c, 6);
         if (c == LEFT)

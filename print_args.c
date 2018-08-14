@@ -13,10 +13,12 @@
 #include "ft_select.h"
 
 
-void reprint_args(int i, t_select *s_stuff, char *ap)
+void reprint_args(int i, t_select *s_stuff)
 {
     char    *ps;
+    char    *ap;
 
+    ap = ft_memalloc(30);
     ps = tgetstr("cm", &ap);
     if (i == s_stuff->pos && s_stuff->selected[i] == 1)
     {
@@ -40,7 +42,6 @@ void reprint_args(int i, t_select *s_stuff, char *ap)
     }
     else if (s_stuff->args[i] == NULL)
     {
-        //ft_putstr_fd("weird: %s", s_stuff->args[i]);
         return ;
     }
     else
@@ -48,47 +49,38 @@ void reprint_args(int i, t_select *s_stuff, char *ap)
     ft_putstr_fd(" ", 0);
 }
 
-void    rep2(t_select *s_stuff, char *ap)
+void    rep2(t_select *s_stuff)
 {
-    int i;
-    int j;
-    int arg;
-    int row;
-    int num;
+    int     col;
+    char    buf[1024];
+    int     row;
+    int     i;
 
-    //check_size(s_stuff);
-    num = get_row_col(s_stuff);
-    clear_scr();
+    tgetent(buf, getenv("TERM"));
     row = tgetnum("li");
-    arg = 0;
-    j = 0;
+    col = tgetnum("co");
     i = 0;
-    if (g_rowlen > row)
+    g_collen = 0;
+    g_rowlen = 1;
+    clear_scr();
+    while (i < g_wc)
     {
-        ft_putstr_fd("please expand window\n", 0);
-        return ;
-    }
-    if (g_rowlen == 1)
-    {
-        while (i < num)
+         if (g_rowlen > row)
         {
-            reprint_args(i, s_stuff, ap);
-            i++;
+            clear_scr();
+            ft_putstr_fd("please expand window\n", 0);
         }
-    }
-    else
-    {
-        while (j < g_rowlen)
+        if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
         {
-            i = 0;
-            while (i < g_wc)
-            {
-                reprint_args(arg, s_stuff, ap);
-                i++;
-                arg++;
-            }
-            ft_putstr_fd("\n", 0);
-            j++;
+            ft_putchar_fd('\n', 0);
+            g_rowlen++;
+            g_collen = 0;
         }
+        else
+        {
+            reprint_args(i, s_stuff);
+            g_collen += ft_strlen(s_stuff->args[i]);
+        }
+        i++;
     }
 }

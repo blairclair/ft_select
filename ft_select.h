@@ -51,10 +51,10 @@ int     get_row_col(t_select *s_stuff);
 int     get_left(t_select *s_stuff);
 int     get_right(t_select *s_stuff);
 int     get_space(t_select *s_stuff);
-void    reprint_args(int i, t_select *s_stuff, char *ap);
+void    reprint_args(int i, t_select *s_stuff);
 int     get_enter(t_select *s_stuff);
 int     get_del(t_select *s_stuff);
-void    rep2(t_select *s_stuff, char *ap);
+void    rep2(t_select *s_stuff);
 
 int     first_print(t_select *s_stuff);
 void    sigrab();
