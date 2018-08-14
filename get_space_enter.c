@@ -15,25 +15,17 @@
 int get_del(t_select *s_stuff)
 {
     int         i;
-    static int  num = 0;
-    int         j;
-    int         rn;
-    
-    num = get_row_col(s_stuff);
-    if (num <= 0)
-        return (0);
-     j = 0;
-    rn = num / g_rowlen;
+
     i = s_stuff->pos;
     s_stuff->args[i] = NULL;
     s_stuff->selected[i] = '\0';
-    while (i < num)
+    while (i < g_wc)
     {
         s_stuff->args[i] = s_stuff->args[i + 1];
         s_stuff->selected[i] = s_stuff->selected[i + 1];
         i++;
     }
-    num--;
+    g_wc--;
     if (s_stuff->pos > 0)
         s_stuff->pos--;
     return (1);
