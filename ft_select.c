@@ -32,11 +32,11 @@ int     get_longest_arg(char **argv)
 
 void    initialize_s_stuff(t_select *s_stuff, int longest, int argc)
 {
-    s_stuff->col_len = 0;
+    g_collen = 0;
     s_stuff->pos = 0;
     s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
     s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
-    s_stuff->rn = 1;
+    g_rowlen = 1;
     s_stuff->wc = 0;
 }
 
@@ -50,6 +50,8 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     
     i = 1;
     j = 0;
+    g_collen = 0;
+    g_rowlen = 1;
     longest = get_longest_arg(argv);
     tgetent(buf, getenv("TERM"));
     tcgetattr(0, s_stuff->oldterm);
@@ -61,7 +63,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     {
       //  s_stuff->args[j] = ft_memalloc(ft_strlen(argv[i]));
         s_stuff->args[j] = argv[i];
-        s_stuff->col_len += ft_strlen(s_stuff->args[j]);
+        g_collen += ft_strlen(s_stuff->args[j]);
         s_stuff->selected[j] = 0;
         i++;
         j++;
@@ -81,6 +83,8 @@ int     read_input(t_select *s_stuff)
     ap = buf2;
     while (1)
     {
+        sigrab();
+        check_size(s_stuff);
          rep2(s_stuff, num, ap);
         c = 0;
         read(STDERR_FILENO, &c, 6);
@@ -107,7 +111,7 @@ int     read_input(t_select *s_stuff)
             break ;
         }
            else
-            ft_printf("select a better key\n");
+            continue;
         clear_scr();
     }
     tgetstr("ue", &ap);
@@ -119,26 +123,34 @@ int    check_size(t_select *s_stuff)
     int     col;
     char    buf[1024];
     static int check = 0;
+    int     row;
 
     tgetent(buf, getenv("TERM"));
+    row = tgetnum("li");
     col = tgetnum("co");
-    if (s_stuff->col_len > col)
+    if (g_rowlen > row)
     {
-        while (s_stuff->col_len > col)
+        clear_scr();
+        ft_putstr_fd("please expand window\n", 0);
+        return (1);
+    }
+    if (g_collen > col)
+    {
+        while (g_collen > col)
         {
-            s_stuff->rn *= 2;
-            s_stuff->col_len /= 2;
+            g_rowlen *= 2;
+            g_collen /= 2;
             s_stuff->wc /= 2;
         }
         check = 1;
     }
-    if (s_stuff->col_len < col && check == 1)
+    if (g_collen < col && check == 1)
     {
-        while (s_stuff->col_len < col)
+        while (g_collen < col)
         {
-            s_stuff->col_len *= 2;
+            g_collen *= 2;
             s_stuff->wc *= 2;
-            s_stuff->rn /=2;
+            g_rowlen /=2;
         }
         check = 0;
     }

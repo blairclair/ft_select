@@ -55,18 +55,18 @@ void    rep2(t_select *s_stuff, int num, char *ap)
     int arg;
     int row;
 
-    check_size(s_stuff);
+    //check_size(s_stuff);
     clear_scr();
     row = tgetnum("li");
     arg = 0;
     j = 0;
     i = 0;
-    if (s_stuff->rn > row)
+    if (g_rowlen > row)
     {
         ft_putstr_fd("please expand window\n", 0);
         return ;
     }
-    if (s_stuff->rn == 1)
+    if (g_rowlen == 1)
     {
         while (i < num)
         {
@@ -76,7 +76,7 @@ void    rep2(t_select *s_stuff, int num, char *ap)
     }
     else
     {
-        while (j < s_stuff->rn)
+        while (j < g_rowlen)
         {
             i = 0;
             while (i < s_stuff->wc)

@@ -28,14 +28,17 @@
 #define DEL2 0x7E335B1B
 # define ESCAPE 0x1B
 
+int g_rowlen;
+int g_collen;
+
 typedef struct  s_select
 {
     char    **args;
     int     row_len;
-    int     col_len;
+ //   int     col_len;
     int     pos;
     int     *selected;
-    int     rn;
+  //  int     rn;
     int     wc;
     struct termios *oldterm;
 }               t_select;                   

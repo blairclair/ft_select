@@ -23,7 +23,7 @@ int get_del(char *ap, t_select *s_stuff)
     if (num <= 0)
         return (0);
      j = 0;
-    rn = num / s_stuff->rn;
+    rn = num / g_rowlen;
     i = s_stuff->pos;
     s_stuff->args[i] = NULL;
     s_stuff->selected[i] = '\0';
