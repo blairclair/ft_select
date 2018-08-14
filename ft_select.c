@@ -84,7 +84,7 @@ int     read_input(t_select *s_stuff)
     while (1)
     {
         sigrab();
-        check_size(s_stuff);
+      //  check_size(s_stuff);
          rep2(s_stuff, num, ap);
         c = 0;
         read(STDERR_FILENO, &c, 6);
@@ -159,7 +159,7 @@ int    check_size(t_select *s_stuff)
 
 int    main(int argc, char *argv[])
 {
-    t_select s_stuff;
+  //  t_select s_stuff;
 
     sigrab();
     if (argc <= 1)

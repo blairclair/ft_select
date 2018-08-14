@@ -18,18 +18,21 @@ void sighandle(int i)
     char    buf[1024];
     static int check = 0;
     int     row;
+     char buf2[30];
+    char    *ap;
+    int     num;
 
+    num = get_row_col(&s_stuff);
+    ap = buf2;
+
+    
     tgetent(buf, getenv("TERM"));
     row = tgetnum("li");
     col = tgetnum("co");
-    
-    printf("row: %d\n", row);
-    printf("grow: %d\n", g_rowlen);
     if (g_rowlen > row)
     {
         clear_scr();
         ft_putstr_fd("please expand window\n", 0);
-      //  return (1);
     }
     if (g_collen > col)
     {
@@ -50,9 +53,9 @@ void sighandle(int i)
             g_rowlen /=2;
         }
         check = 0;
-    }
-  
-  i++;//  exit(0);
+    } 
+  i++;
+    rep2(&s_stuff, num, ap);
 }
 
 void    sigrab()

@@ -43,6 +43,8 @@ typedef struct  s_select
     struct termios *oldterm;
 }               t_select;                   
 
+t_select s_stuff;
+
 void    clear_scr();
 void    print_select_args(t_select *s_stuff);
 int     get_row_col(t_select *s_stuff);
