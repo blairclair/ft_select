@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_select.h"
+#define RED   "\x1B[31m"
+#define RESET "\x1B[0m"
 
 int     get_longest_arg(char **argv)
 {
@@ -46,6 +48,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     g_rowlen = 1;
     g_wc = 0;
     s_stuff->pos = 0;
+    s_stuff->wpc = 0;
     s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
     s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
     tgetent(buf, getenv("TERM"));
@@ -73,9 +76,11 @@ int     read_input(t_select *s_stuff)
     ap = buf2;
     while (1)
     {
-        sigrab();
+ 
         rep2(s_stuff);
         c = 0;
+        printf("pos: %d\n", s_stuff->pos);
+        printf("wc %d\n", g_wc);
         read(STDERR_FILENO, &c, 6);
         if (c == LEFT)
             get_left(s_stuff);
@@ -83,6 +88,8 @@ int     read_input(t_select *s_stuff)
             get_right(s_stuff);
         else if (c == SPACE)
             get_space(s_stuff);
+        else if (c == DOWN)
+            get_down(s_stuff);
         else if (c == ESCAPE)
             break ;
         else if (c == 0 || c == DEL || c== DEL2)
@@ -97,7 +104,7 @@ int     read_input(t_select *s_stuff)
         }
            else
             continue;
-        clear_scr();
+     //   clear_scr();
     }
     tgetstr("ue", &ap);
     return (1);

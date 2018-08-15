@@ -17,9 +17,19 @@ void reprint_args(int i, t_select *s_stuff)
 {
     char    *ps;
     char    *ap;
+    char    *color;
+    struct stat statcheck;
+
 
     ap = ft_memalloc(30);
     ps = tgetstr("cm", &ap);
+    stat(s_stuff->args[i], &statcheck);
+    if (S_ISDIR(statcheck.st_mode))
+        color = GREEN;
+    else if (statcheck.st_mode & S_IXUSR)
+        color = RED;
+    else
+        color = BLUE;
     if (i == s_stuff->pos && s_stuff->selected[i] == 1)
     {
         ft_putstr_fd(tgetstr("us", &ap), 0);
@@ -31,7 +41,9 @@ void reprint_args(int i, t_select *s_stuff)
     else if (i == s_stuff->pos && s_stuff->selected[i] == 0)
     {
         ft_putstr_fd(tgetstr("us", &ap), 0);
+     
         ft_putstr_fd(s_stuff->args[i], 0);
+  
         ft_putstr_fd(tgetstr("ue", &ap), 0);
     }
     else if (i != s_stuff->pos && s_stuff->selected[i] == 1)
@@ -45,7 +57,11 @@ void reprint_args(int i, t_select *s_stuff)
         return ;
     }
     else
+    {
+        ft_putstr_fd(color, 0);
         ft_putstr_fd(s_stuff->args[i], 0);
+        ft_putstr_fd(RESET, 0);
+    }
     ft_putstr_fd(" ", 0);
 }
 
@@ -55,6 +71,7 @@ void    rep2(t_select *s_stuff)
     char    buf[1024];
     int     row;
     int     i;
+    static int     track = 0;
 
     tgetent(buf, getenv("TERM"));
     row = tgetnum("li");
@@ -74,11 +91,14 @@ void    rep2(t_select *s_stuff)
         else if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
         {
             ft_printf("\n");
+            s_stuff->wpc = track;
             g_rowlen++;
             g_collen = 0;
+            track = 0;
         }
         else
         {
+            track++;
             reprint_args(i, s_stuff);
             g_collen += ft_strlen(s_stuff->args[i]) + 1;
             i++;

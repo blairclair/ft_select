@@ -14,12 +14,7 @@
 
 int get_right(t_select *s_stuff)
 {
-    int     col;
-    //int     row;
-    char    buf[1024];
-
-    tgetent(buf, getenv("TERM"));
-    col = tgetnum("co");
+   
    
     if (s_stuff->pos >= g_wc - 1 || s_stuff->pos < 0)
         s_stuff->pos = 0;
@@ -28,4 +23,22 @@ int get_right(t_select *s_stuff)
     else
         s_stuff->pos++;
     return (1);
+}
+
+int get_down(t_select *s_stuff)
+{
+    if (s_stuff->pos >= g_wc - 1)
+        s_stuff->pos -= (g_rowlen * s_stuff->wpc);
+    else
+        s_stuff->pos += s_stuff->wpc;
+    return (1);    
+}
+
+int get_up(t_select *s_stuff)
+{dgfxf//write get up function
+    if (s_stuff->pos >= g_wc - 1)
+        s_stuff->pos += (g_rowlen * s_stuff->wpc);
+    else
+        s_stuff->pos -= s_stuff->wpc;
+    return (1);    
 }

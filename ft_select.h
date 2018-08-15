@@ -13,6 +13,7 @@
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 #include "libft/libft.h"
+#include <sys/stat.h>
 #include "libft/printf_functions/ft_printf.h"
 #include <termcap.h>
 #include <sys/ioctl.h>
@@ -21,12 +22,16 @@
 #define LEFT 0x445B1B
 #define RIGHT 0x435B1B
 //#define UP 0x415B1B
-//#define DOWN 0x425B1B
+#define DOWN 0x425B1B
 #define SPACE 0x20
 #define ENTER1 0xA
 #define DEL 0x7F
 #define DEL2 0x7E335B1B
 # define ESCAPE 0x1B
+#define RED   "\x1B[31m"
+#define GREEN   "\x1B[32m"
+#define BLUE  "\x1B[34m"
+#define RESET "\x1B[0m"
 
 int g_rowlen;
 int g_collen;
@@ -40,6 +45,7 @@ typedef struct  s_select
     int     *selected;
   //  int     rn;
    // int     wc;
+   int         wpc;
     struct termios *oldterm;
 }               t_select;                   
 
@@ -54,7 +60,7 @@ void    reprint_args(int i, t_select *s_stuff);
 int     get_enter(t_select *s_stuff);
 int     get_del(t_select *s_stuff);
 void    rep2(t_select *s_stuff);
-
+int     get_down(t_select *s_stuff);
 int     first_print(t_select *s_stuff);
 void    sigrab();
 
