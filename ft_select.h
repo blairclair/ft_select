@@ -60,8 +60,8 @@ void    reprint_args(int i, t_select *s_stuff);
 int     get_enter(t_select *s_stuff);
 int     get_del(t_select *s_stuff);
 void    rep2(t_select *s_stuff);
-int     get_down(t_select *s_stuff);
 int     first_print(t_select *s_stuff);
 void    sigrab();
-
+void    reset_term();
+int     initialize_select(t_select *s_stuff, char **argv, int argc);
 #endif

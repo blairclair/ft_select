@@ -15,13 +15,13 @@
 
 void reprint_args(int i, t_select *s_stuff)
 {
+    char    buf[30];
     char    *ps;
     char    *ap;
     char    *color;
     struct stat statcheck;
 
-
-    ap = ft_memalloc(30);
+    ap = buf;
     ps = tgetstr("cm", &ap);
     stat(s_stuff->args[i], &statcheck);
     if (S_ISDIR(statcheck.st_mode))
@@ -90,7 +90,7 @@ void    rep2(t_select *s_stuff)
         }
         else if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
         {
-            ft_printf("\n");
+            ft_putstr_fd("\n", 0);
             s_stuff->wpc = track;
             g_rowlen++;
             g_collen = 0;

@@ -40,7 +40,10 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     int j;
     static struct termios newterm;
     char    buf[1024];
+    char    buf2[30];
+    char    *ap;
     
+    ap = buf2;
     longest = get_longest_arg(argv);
     i = 1;
     j = 0;
@@ -56,6 +59,8 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     tcgetattr(0, &newterm);
     newterm.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(0, TCSANOW, &newterm);
+    ft_putstr_fd(tgetstr("vi", &ap), 0);
+    ft_putstr_fd(tgetstr("ti", &ap), 0);
     while (i < argc)
     {
         s_stuff->args[j] = argv[i];
@@ -65,6 +70,18 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
         g_wc++;
     }
     return (1);
+}
+
+void    reset_term()
+{
+    char buf2[30];
+    char *ap;
+
+    ap = buf2;
+    tcsetattr(0, TCSANOW, &*s_stuff.oldterm);
+    ft_putstr_fd(tgetstr("ve", &ap), 0);
+    ft_putstr_fd(tgetstr("te", &ap), 0);
+    clear_scr();
 }
 
 int     read_input(t_select *s_stuff)
@@ -79,8 +96,6 @@ int     read_input(t_select *s_stuff)
  
         rep2(s_stuff);
         c = 0;
-        printf("pos: %d\n", s_stuff->pos);
-        printf("wc %d\n", g_wc);
         read(STDERR_FILENO, &c, 6);
         if (c == LEFT)
             get_left(s_stuff);
@@ -88,8 +103,6 @@ int     read_input(t_select *s_stuff)
             get_right(s_stuff);
         else if (c == SPACE)
             get_space(s_stuff);
-        else if (c == DOWN)
-            get_down(s_stuff);
         else if (c == ESCAPE)
             break ;
         else if (c == 0 || c == DEL || c== DEL2)
@@ -99,28 +112,52 @@ int     read_input(t_select *s_stuff)
         }
         else if (c == ENTER1)
         {
+            reset_term();
             get_enter(s_stuff);
-            break ;
+            exit(0);
         }
            else
             continue;
-     //   clear_scr();
     }
-    tgetstr("ue", &ap);
     return (1);
 }
 
+int     first_step()
+{
+    char *name;
+	char	buf[1024];
+
+    name = getenv("TERM");
+    if (name == NULL)
+    {
+        ft_printf("no terminal name\n");
+        return (0);
+    }
+    if (!tgetent(buf, name))
+    {
+         ft_printf("no terminfo\n");
+        return (0);
+    }
+    return (1);
+}
 
 int    main(int argc, char *argv[])
 {
+    char buf2[30];
+    char *ap;
+
+    ap = buf2;
     sigrab();
     if (argc <= 1)
     {
         ft_printf("more args please\n");
         return (0);
     }
+    if (!first_step())
+        return (0);
     initialize_select(&s_stuff, argv, argc);
     read_input(&s_stuff);
-    tcsetattr(0, TCSANOW, &*s_stuff.oldterm);
+    
+
     return (0);
 }
