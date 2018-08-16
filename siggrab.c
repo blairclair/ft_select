@@ -30,12 +30,10 @@ void    sigz(int i)
     char buf2[30];
     char *ap;
     ap = buf2;
-    tcgetattr(0, &*s_stuff.old2);
-    tcsetattr(0, TCSAFLUSH, &*s_stuff.oldterm);
     ft_putstr_fd(tgetstr("ve", &ap), 0);
     ft_putstr_fd(tgetstr("te", &ap), 0);
-    ioctl(0, TIOCSTI);
-    signal(SIGTSTP, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
     i++;
 }
 
@@ -57,6 +55,6 @@ void    sigrab()
     signal(SIGSEGV, siggon);
     signal(SIGTERM, siggon);
     signal(SIGWINCH, sighandle);
-  //  signal(SIGTSTP, sigz);
+    signal(SIGTSTP, sigz);
     signal(SIGCONT, sigfg);
 }
