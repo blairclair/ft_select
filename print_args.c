@@ -88,7 +88,7 @@ void    rep2(t_select *s_stuff)
             ft_putstr_fd("please expand window\n", 0);
             break ;
         }
-        else if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col)
+        else if (g_collen + (int)ft_strlen(s_stuff->args[i]) > col - 1)
         {
             ft_putstr_fd("\n", 0);
             s_stuff->wpc = track;

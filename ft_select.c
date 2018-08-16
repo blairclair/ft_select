@@ -6,13 +6,11 @@
 /*   By: agrodzin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 08:42:54 by agrodzin          #+#    #+#             */
-/*   Updated: 2018/08/06 08:42:55 by agrodzin         ###   ########.fr       */
+/*   Updated: 2018/08/15 13:01:56 by agrodzin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-#define RED   "\x1B[31m"
-#define RESET "\x1B[0m"
 
 int     get_longest_arg(char **argv)
 {
@@ -33,13 +31,28 @@ int     get_longest_arg(char **argv)
 }
 
 
+void    set_environ()
+{
+    static struct termios newterm;
+    char    buf[1024];
+    char    buf2[30];
+    char    *ap;
+
+    ap = buf2;
+    tgetent(buf, getenv("TERM"));
+    tcgetattr(0, &*s_stuff.oldterm);
+    tcgetattr(0, &newterm);
+    newterm.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(0, TCSANOW, &newterm);
+    ft_putstr_fd(tgetstr("vi", &ap), 0);
+    ft_putstr_fd(tgetstr("ti", &ap), 0);
+}
+
 int     initialize_select(t_select *s_stuff, char **argv, int argc)
 {
     int longest;
     int i;
     int j;
-    static struct termios newterm;
-    char    buf[1024];
     char    buf2[30];
     char    *ap;
     
@@ -54,13 +67,7 @@ int     initialize_select(t_select *s_stuff, char **argv, int argc)
     s_stuff->wpc = 0;
     s_stuff->selected = ft_memalloc(sizeof(int) * argc + 1);
     s_stuff->args = ft_memalloc(longest * sizeof(s_stuff) * (argc));
-    tgetent(buf, getenv("TERM"));
-    tcgetattr(0, s_stuff->oldterm);
-    tcgetattr(0, &newterm);
-    newterm.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(0, TCSANOW, &newterm);
-    ft_putstr_fd(tgetstr("vi", &ap), 0);
-    ft_putstr_fd(tgetstr("ti", &ap), 0);
+    set_environ();
     while (i < argc)
     {
         s_stuff->args[j] = argv[i];
@@ -81,7 +88,7 @@ void    reset_term()
     tcsetattr(0, TCSANOW, &*s_stuff.oldterm);
     ft_putstr_fd(tgetstr("ve", &ap), 0);
     ft_putstr_fd(tgetstr("te", &ap), 0);
-    clear_scr();
+   // clear_scr();
 }
 
 int     read_input(t_select *s_stuff)
@@ -93,7 +100,8 @@ int     read_input(t_select *s_stuff)
     ap = buf2;
     while (1)
     {
- 
+        if (g_wc <= 0)
+            return (1);
         rep2(s_stuff);
         c = 0;
         read(STDERR_FILENO, &c, 6);
@@ -104,8 +112,8 @@ int     read_input(t_select *s_stuff)
         else if (c == SPACE)
             get_space(s_stuff);
         else if (c == ESCAPE)
-            break ;
-        else if (c == 0 || c == DEL || c== DEL2)
+            return (1);
+        else if (c == DEL || c== DEL2)
         {
             if (get_del(s_stuff) == 0)
                 return (1);
@@ -157,7 +165,7 @@ int    main(int argc, char *argv[])
         return (0);
     initialize_select(&s_stuff, argv, argc);
     read_input(&s_stuff);
-    
+    reset_term();
 
     return (0);
 }

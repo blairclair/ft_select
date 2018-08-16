@@ -36,7 +36,6 @@ int get_enter(t_select *s_stuff)
     int i;
 
     i = 0;
-    ft_printf("\n");
     while (s_stuff->args[i])
     {
         if (s_stuff->selected[i] == 1)

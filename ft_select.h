@@ -21,8 +21,6 @@
 #include <signal.h>
 #define LEFT 0x445B1B
 #define RIGHT 0x435B1B
-//#define UP 0x415B1B
-#define DOWN 0x425B1B
 #define SPACE 0x20
 #define ENTER1 0xA
 #define DEL 0x7F
@@ -47,6 +45,7 @@ typedef struct  s_select
    // int     wc;
    int         wpc;
     struct termios *oldterm;
+    struct termios *old2;
 }               t_select;                   
 
 t_select s_stuff;
@@ -64,4 +63,5 @@ int     first_print(t_select *s_stuff);
 void    sigrab();
 void    reset_term();
 int     initialize_select(t_select *s_stuff, char **argv, int argc);
+void    set_environ();
 #endif
