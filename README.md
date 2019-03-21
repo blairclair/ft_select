@@ -17,4 +17,4 @@ How to compile
 Example
 -------
 -------
-![]select.gif.sb-33b18778-MA1FBg
+![](select.gif.sb-33b18778-MA1FBg)
