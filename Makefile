@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror -ltermcap -g
+CFLAGS= -Wall -Wextra -Werror -ltermcap
 SRCS=libft/ft_putchar.c\
 libft/ft_strjoin.c\
 libft/ft_strcat.c\
@@ -53,6 +53,7 @@ get_left.c\
 get_right.c\
 get_space_enter.c\
 siggrab.c\
+utils.c\
 ft_select.c
 NAME=ft_select
 

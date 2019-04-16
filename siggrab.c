@@ -6,55 +6,56 @@
 /*   By: agrodzin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 09:35:22 by agrodzin          #+#    #+#             */
-/*   Updated: 2018/08/13 09:35:29 by agrodzin         ###   ########.fr       */
+/*   Updated: 2018/08/16 08:10:23 by agrodzin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void sighandle(int i)
+void	sighandle(int i)
 {
-    i++;
-    rep2(&s_stuff);
+	i++;
+	rep2(&g_s_stuff);
 }
 
-void    siggon(int i)
+void	siggon(int i)
 {
-    reset_term();
-    i++;
-    exit(0);
+	reset_term();
+	i++;
+	exit(0);
 }
 
-void    sigz(int i)
+void	sigz(int i)
 {
-    char buf2[30];
-    char *ap;
-    ap = buf2;
-    ft_putstr_fd(tgetstr("ve", &ap), 0);
-    ft_putstr_fd(tgetstr("te", &ap), 0);
+	char	buf2[30];
+	char	*ap;
+
+	ap = buf2;
+	ft_putstr_fd(tgetstr("ve", &ap), 0);
+	ft_putstr_fd(tgetstr("te", &ap), 0);
 	signal(SIGTSTP, SIG_DFL);
 	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
-    i++;
+	i++;
 }
 
-void    sigfg(int i)
+void	sigfg(int i)
 {
-    set_environ();
-    clear_scr();
-    rep2(&s_stuff);
-    i++;
+	set_environ();
+	clear_scr();
+	rep2(&g_s_stuff);
+	i++;
 }
 
-void    sigrab()
+void	sigrab(void)
 {
-    signal(SIGINT, siggon);
-    signal(SIGABRT, siggon);
-    signal(SIGFPE, siggon);
-    signal(SIGILL, siggon);
-    signal(SIGINT, siggon);
-    signal(SIGSEGV, siggon);
-    signal(SIGTERM, siggon);
-    signal(SIGWINCH, sighandle);
-    signal(SIGTSTP, sigz);
-    signal(SIGCONT, sigfg);
+	signal(SIGINT, siggon);
+	signal(SIGABRT, siggon);
+	signal(SIGFPE, siggon);
+	signal(SIGILL, siggon);
+	signal(SIGINT, siggon);
+	signal(SIGSEGV, siggon);
+	signal(SIGTERM, siggon);
+	signal(SIGWINCH, sighandle);
+	signal(SIGTSTP, sigz);
+	signal(SIGCONT, sigfg);
 }
