@@ -18,7 +18,7 @@ void	reset_term(void)
 	char	*ap;
 
 	ap = buf2;
-	tcsetattr(0, TCSANOW, &*g_s_stuff.oldterm);
+	tcsetattr(0, TCSANOW, &g_s_stuff.oldterm);
 	ft_putstr_fd(tgetstr("ve", &ap), 0);
 	ft_putstr_fd(tgetstr("te", &ap), 0);
 }

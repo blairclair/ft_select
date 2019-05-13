@@ -39,8 +39,8 @@ void	set_environ(void)
 
 	ap = buf2;
 	tgetent(buf, getenv("TERM"));
-	tcgetattr(0, &*g_s_stuff.oldterm);
-	tcgetattr(0, &newterm);
+	tcgetattr(0, &g_s_stuff.oldterm);
+	newterm = g_s_stuff.oldterm;
 	newterm.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(0, TCSANOW, &newterm);
 	ft_putstr_fd(tgetstr("vi", &ap), 0);

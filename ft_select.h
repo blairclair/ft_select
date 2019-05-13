@@ -40,7 +40,7 @@ typedef struct		s_select
 	int				*selected;
 	int				wc;
 	int				wpc;
-	struct termios	*oldterm;
+	struct termios	oldterm;
 	struct termios	*old2;
 }					t_select;
 
